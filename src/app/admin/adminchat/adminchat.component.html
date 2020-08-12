@@ -1,0 +1,97 @@
+
+    
+    
+        <mat-drawer-container class="right-container" >
+            <mat-drawer #drawer class="right-sidenav" mode="side" position="end">
+                <mat-icon class="close-but" (click)="drawer.toggle()">close</mat-icon><br><br>
+                <div class="sidenav-contents">
+                    <img class="sidenav-img" src="assets/pp.jpg">
+                        <p class="sidenav-profile-desc">Guns & roses</p>
+                        <p class="sidenav-desc">Lorem ipsum donorsit amel,consectutor adipricingelit</p>
+                        <h4 class="media-head"><b>Media</b></h4>
+                        <p class="media-desc">See all your media and more</p>
+                        <div class="medias">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                        </div>
+                        <h4 class="context-head"><b>context</b></h4>
+                        <p class="context-desc">See all your media and more</p>
+                        <div class="medias">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                            <img class="media-tile" src="assets/pp.jpg">
+                        </div>
+                </div>
+            </mat-drawer>
+            <div class="right-sidenav-content">
+                <div class="nav-right">
+                    
+                    <div class="image-detail-right" >
+                        <mat-icon class="back-button" (click)="cancel()">arrow_back_ios</mat-icon>
+                        <img src="assets/pp.jpg" class="image-nav-right" (click)="drawer.toggle()">
+                        <div (click)="drawer.toggle()">
+                        <h4 class="profile-name-right">Christian College</h4>
+                        <p>Last seen</p>
+                        </div>
+                    </div>
+                    <div class="right-nav-icons">
+                        <div class="search">
+                            <input type="text" class="search-field" placeholder="Search"*ngIf="searchShow">
+                            <button type="submit" class="search-button" (click)="fnSearchShow()"><mat-icon >search</mat-icon></button>
+                            
+                        </div>
+                        <mat-icon  [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                            <button mat-menu-item>
+                            <mat-icon>person</mat-icon>
+                            <span>Profile</span>
+                            </button>
+                            <button mat-menu-item>
+                            <mat-icon>cancel</mat-icon>
+                            <span>Logout</span>
+                            </button>
+                        
+                        </mat-menu>
+                    </div>
+                </div>
+                <div class="chat-container" >
+                    <div class="chat" (click)="optionClose()">
+    
+                    </div>
+                    <div class="option-select" *ngIf="optionSelect">
+                        <div class="option"><mat-icon>text_snippet</mat-icon><span>Document</span></div>
+                        <div class="option"><mat-icon>photo_camera</mat-icon><span>Camera</span></div>
+                    
+                        <div class="option"><mat-icon>photo_library</mat-icon><span>Gallery</span></div>
+                        <div class="option"><mat-icon>language</mat-icon><span>Club</span></div>
+                        <div class="option"><mat-icon>add_circle_outline</mat-icon><span>Add</span></div>
+                        <div class="option"><mat-icon>account_circle</mat-icon><span>Contact</span></div>
+                    </div>
+                    <div class="chat-function">
+                        <div class="input-msg">
+                            <mat-icon>mood</mat-icon>
+                            <input  placeholder="Type a message" class="input-cont">
+                            
+                            <div>
+                                <mat-icon>send</mat-icon>
+                            <input #file type="file" [hidden]="true" accept="image/*" (change)="upload(file.files)">
+                            <mat-icon  #upload (click)="option()">attach_file</mat-icon>
+                            <mat-icon >camera_alt</mat-icon>
+                            </div>
+                        </div>
+                        <button class="voice"><mat-icon>keyboard_voice</mat-icon></button>
+                    </div>
+                </div>
+            </div>
+        </mat-drawer-container>

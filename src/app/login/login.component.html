@@ -1,0 +1,38 @@
+<div class="spinner-wrapper" *ngIf="loading">
+  <mat-progress-spinner color="primary" mode="indeterminate">
+  </mat-progress-spinner>
+</div>
+<div class="outer">
+    <nav class="nav-bar">
+       
+         <img class="logo" src="assets/logo.svg">
+       
+       
+    </nav>
+    <div class="data-container">
+      <img class="logo2" src="assets/logo2.png">
+      <form [formGroup]="loginForm">
+        <mat-form-field appearance="outline" class="input-container1">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Enter username" matInput
+            formControlName="username">
+            
+           
+          </mat-form-field><br>
+          <mat-form-field appearance="outline" class="input-container">
+            <mat-label>Password</mat-label>
+       
+            <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+           
+          </mat-form-field>
+          <div class="error-message" *ngIf="error">Invalid credentials ! Plese try again</div>
+        </form>
+        <!-- <div class="error-message"*ngIf="UserNotFound">Credentials mismatch.Please try again!!!</div> -->
+        <div class="forgot-password-position"><p class="forgot-password"(click)="openChangePassword()">Forgot Password?</p></div>
+        <button (click)="onSubmit()" class="submit-but">Login
+          
+        </button>
+        
+    </div>
+</div>

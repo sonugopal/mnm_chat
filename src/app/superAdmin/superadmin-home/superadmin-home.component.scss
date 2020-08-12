@@ -1,0 +1,246 @@
+
+@media (min-width:100px) and(max-width:500px){
+.left-container{
+   width: 100%;
+}
+.left-sidenav{
+    width: 20vw;
+}
+::ng-deep.mat-tab-header-pagination {
+    display: none !important;
+  }
+  ::ng-deep .mat-tab-header {
+    overflow-x: scroll !important;
+   
+  }
+  
+  ::ng-deep .mat-tab-label-container { 
+    overflow: visible !important;
+  
+  }
+  ::ng-deep .mat-tab-header::-webkit-scrollbar {
+    display: none;
+  }
+// .router{
+//     display: none;
+// }
+}
+
+@media (min-width:500px){
+    .left-container{
+        width: 29.90vw;
+        border-right: 0.10vw solid gray ; 
+    }
+    .left-sidenav{
+        width: 8vw;
+    }
+
+}  
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+// ::ng-deep .mat-tab-header {
+//     overflow-x: scroll !important;
+   
+//   }
+  
+//   ::ng-deep .mat-tab-label-container { 
+//     overflow: visible !important;
+  
+//   }
+//   ::ng-deep .mat-tab-header::-webkit-scrollbar {
+//     display: none;
+//   }
+//   ::ng-deep  .mat-tab-header-pagination {
+//     display: none !important;
+//   }
+  ::ng-deep.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+    background: orangered;
+   
+  } 
+.outer{
+    // width: 100vw;
+    // height: 100vh;
+    display: flex;
+    .left-container{
+        // width: 30vw;
+        // border-right: 1px solid gray ;
+        height: 100%;
+        .nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 14.90vh;
+            padding-left: 5%;
+            border-bottom: 0.10vh solid gray;
+            .nav-left-image{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+            .nav-options{
+                display: flex;
+            }
+            .search{
+                display: flex;
+              }
+              .search-field {
+                border: none;
+                background: white;
+                border-left: none;
+                border-radius:20px 0 0 20px; 
+                outline: none;
+                color: #9DBFAF;
+              }
+              .search-button {
+                border: none;
+                background: white;
+                text-align: center;
+                color:black;
+                border-right: none;
+                border-radius:0 20px 20px 0;
+                cursor: pointer;
+                font-size: 20px;
+                outline: 0 !important;
+                
+              }
+            .mat-icon{
+                cursor: pointer;
+                width: 40px;
+            }
+        }
+        .left-details{
+            display: flex;
+            height: 77vh;
+            .left-sidenav{
+                background-color: lightgray;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                // width: 8vw;
+                overflow-y: scroll;
+                .left-sidenav-profile{
+                    margin-bottom: 10%;
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                }
+            }
+            .nav-first-right{
+                border-top: 1px solid lightgray;
+                width: 100%;
+                overflow-y: scroll ;
+                display: flex;
+                flex-direction: column;
+                    .nav-right-data{
+                        display: flex;
+                        margin-top: 5%;
+                        margin-left: 5%;
+                        margin-right: 5%;
+                        justify-content: space-between;
+                        outline:0 !important;
+                        .nav-right-pic{
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            margin-right: 5%;
+                        }
+                    }
+                    .rightlines{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        .right-first-line{
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            .institute-name{
+                                font-size: 1.25rem;
+                            }
+                            .time{
+                                font-size: 0.5rem;
+                            }
+                        }
+                        .right-second-line{
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            .right-message{
+                                color: gray;
+                            }
+                            .message-count{
+                                background-color: orangered;
+                                border-radius: 50%;
+                                color: white;
+                                width: 20px;
+                                height: 20px;
+                                text-align: center;
+                            }
+                        }
+                    }
+                .under{
+                    margin-left: 22%;
+                    margin-right: 2%;;
+                }
+            }
+       
+        }
+        .add-admin{
+           display: flex;
+            justify-content: space-between;
+            height: 60px;
+            align-items: center;
+            padding-left: 5%;
+            padding-right: 5%;
+            background-color: orangered;
+            color: white;
+            cursor: pointer;
+            width: 90%;
+           position: absolute  ;
+           outline:0 !important;
+           
+        }
+        .add-admin:hover {opacity: 0.6}
+        .admin-detail{
+            display: flex;
+            flex-direction: column;
+            margin-top:70px;
+            overflow: scroll;
+            height:65vh ;
+            .admins{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2%;
+                padding-left: 5%;
+                padding-right: 5%;
+                padding-top: 2%;
+                padding-bottom: 2%;
+                cursor: pointer;
+                background-color: lightgrey;
+                outline:0 !important;
+                .admin-image-nav{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
+                .admin-name{
+                    margin-top: 2%;
+                font-family: sans-serif;
+                font-size: 1rem;
+                
+                }
+            }
+           .admins:hover {opacity: 0.6}
+        }
+    }
+    
+    
+}
+
+ 
+   
+      
+    

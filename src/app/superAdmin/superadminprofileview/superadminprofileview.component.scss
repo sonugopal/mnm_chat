@@ -1,0 +1,141 @@
+@media(min-width:100px) and (max-width:500px){
+    .data-container{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .logo{
+        width: 50%;
+    }
+    .profile-image{
+        margin-bottom: 10%;
+    }
+    .home-button{
+        display: none;
+    }
+    .cancel-btn{
+        margin-left: 2%;
+        margin-top: 5%;
+    }
+    .change-password-position{
+        margin-bottom: 10%;
+    }
+}
+@media(min-width:500px){
+    .cancel-btn{
+        display: none;
+    }
+    .profile-image{
+        margin-bottom: 5%;
+    }
+}
+
+.mat-icon{
+    cursor: pointer;
+}
+
+.outer{
+    .nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 2%;
+        .logo{
+            margin-top: 2%;
+            margin-left: 2%;
+        }
+        .home-button{
+            margin-top: 2%;
+            background-color: orangered;
+            border-radius: 8px;
+            color: white;
+            height: 30px;
+            width: 10%;
+            border: none;
+            cursor: pointer;
+            outline: 0 !important;
+        }
+        .home-button:hover {opacity: 0.6}
+    }
+    .data-container{
+        display: flex;
+        
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-right: 5%;
+        // border: 1px solid gray;
+        border-radius: 8px;
+        padding-top: 5%;
+        padding-left: 5%;
+        padding-right: 5%;
+        padding-bottom: 5%;
+        .change-password-position{
+           
+            .change-password{
+                background-color: orangered;
+                color: white;
+                border-radius: 10px;
+                border: none;
+                height: 30px;
+                width: 100%;
+                outline: 0 !important;
+                cursor: pointer;
+               
+            }
+            .change-password:hover {opacity: 0.6}
+
+        }
+        .image-upload > input
+            {
+                display: none;
+            }
+        .profile-image{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+        }
+       .data-left{
+           margin-right: 10%;
+       }
+       .data-right{
+           display: flex;
+           flex-direction: column;
+           .edit-data{
+               display: flex;
+               justify-content: space-between;
+               .mat-icon{
+                   margin-top: 1%;
+                   cursor: pointer;
+                //    border: 1px solid gray;
+               }
+           }
+           .data{
+               border: 1px solid gray;
+               border-radius: 8px;
+               width: 50vw;
+               padding-left: 5%;
+               height: 40px;
+               margin-bottom: 5%;
+               display: flex;
+               align-items: center;
+             
+           }
+           .data1{
+            border: 1px solid gray;
+            border-radius: 8px;
+            width: 52.5vw;
+            padding-left: 5%;
+            height: 40px;
+            margin-bottom: 5%;
+            display: flex;
+            align-items: center;
+            
+       
+        }
+        .edit-name-container{
+            width:52.5vw ;
+        }
+       
+         
+       }
+    }
+}

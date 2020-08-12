@@ -1,0 +1,214 @@
+@media(min-width:100px) and (max-width:500px){
+    .right-container{
+        width: 100vw;
+    }
+    .chat-function{
+        width: 100vw;
+    }
+    .chat-container{
+        height: 90vh;
+    }
+    .option-select{
+        width: 95vw;
+        height: 15%;
+    }
+    .right-sidenav{
+        width: 100vw;
+    }
+    .image-detail-right{
+        width: 70%;
+        margin-left: 2%;
+    }
+    .input-cont{
+        width: 40%;
+    
+    }
+}
+@media(min-width:500px){
+    .right-container{
+        width: 70vw;
+    }
+    .chat-function{
+        width: 70%;
+    }
+    .chat-container{
+        height: 85vh;
+    }
+    .option-select{
+        width: 65vw;
+        height: 15%;
+    }
+    .right-sidenav{
+        width: 18vw;
+    }
+    .image-detail-right{
+        width: 50%;
+    }
+    .back-button{
+        display: none;
+    }
+    .input-cont{
+        width: 60%;
+    }
+}
+
+.right-container {
+    // width: 70vw;
+    height: 100%;
+  
+   .nav-right{
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       height: 15vh;
+       
+       .image-detail-right{
+          
+           display: flex;
+          align-items: center;
+           .image-nav-right{
+               margin-left: 5%;
+               margin-right: 5%;
+               height: 50px;
+               width: 50px;
+               border-radius: 50%;
+           }
+           .profile-name-right{
+            margin-bottom: 0;
+           }
+       }
+       .right-nav-icons{
+           display: flex;
+       }
+       .search{
+        display: flex;
+      }
+      .search-field {
+        border: none;
+        background: white;
+        border-left: none;
+        border-radius:20px 0 0 20px; 
+        outline: none;
+        color: #9DBFAF;
+      }
+      .search-button {
+        border: none;
+        background: white;
+        text-align: center;
+        color:black;
+        border-right: none;
+        border-radius:0 20px 20px 0;
+        cursor: pointer;
+        font-size: 20px;
+        outline: 0 !important;
+        
+      }
+    }
+   .chat-container{
+       background-color: lightgray;
+    //    height: 85vh;
+       .option-select{
+        // width: 65vw;
+        position: absolute;
+        bottom: 100px;
+        
+        background-color:white;
+        border-radius: 10px;
+        margin-left: 2%;
+        margin-right: 2%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+            .mat-icon{
+                height: 30px;
+                width: 30px;
+                color: orangered;
+            }
+            .option{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        .chat-function{
+            display: flex;
+            position: fixed;
+            bottom: 2%;
+            // width: 70%;
+            .input-msg{
+                display: flex;
+                align-items: center;
+                width: 90%;
+                margin-right: 2%;
+                position: relative;
+                margin-left: 2%;
+                border-radius: 10px;
+                border:none;
+                background-color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-left: 5%;
+                .mat-icon{
+                    // margin-top: 2%;
+                    color: gray;
+                    width: 40px;
+                }
+                .input-cont{
+                    // width: 60%;
+                    height: 30px;
+                    border: none;
+                    outline: 0 !important;
+                }
+            }
+            .voice{
+                margin-right: 2%;
+                border-radius: 50%;
+                background-color: orangered;
+                color: white;
+                border: none;
+                outline: 0 !important;
+            }
+        }
+    }
+    .close-but{
+                float: left;
+            }
+    .sidenav-contents{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        .sidenav-img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50% ;
+        }
+        .context-head{
+            margin-bottom: 0;
+        }
+        .media-head{
+            margin-top: 5%;
+            margin-bottom: 0;
+        }
+      .medias{
+            display: flex;
+            width: 15vw;
+            height: 100px;
+            overflow-x: scroll;
+          .media-tile{
+              height: 50px;
+              width: 50px;
+              margin-right: 10%;
+              border-radius: 10px;
+            }
+        }
+    }
+ 
+  
+
+
+}

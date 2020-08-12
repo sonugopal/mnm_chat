@@ -1,0 +1,28 @@
+    <div class="right-container"> 
+        <div class="back-but">
+        <mat-icon  (click)="cancel()">arrow_back_ios</mat-icon>
+    </div>
+        <div class="logo-position">
+        <img class="logo" src="assets/logo.svg">
+    </div>
+        <div class="admin-new">
+            <h2>Add new admin</h2>
+            <form [formGroup]="registerForm">
+                <mat-form-field appearance="outline">
+                    <input  placeholder="Enter  name" type="text" matInput
+                    formControlName="name"  required  >
+                </mat-form-field><br><br>
+                <mat-form-field appearance="outline">
+                    <input  placeholder="Enter  mobile number" type="text" matInput
+                    formControlName="mobile"  required  >
+                </mat-form-field><br><br>
+                <mat-form-field appearance="outline">
+                    <input  placeholder="Enter  mail id" type="text" matInput
+                    formControlName="email"  required  >
+                </mat-form-field><br><br>
+            <div class="submit-button">
+                <button (click)="submitForm()" class="submit-btn" [disabled]="!registerForm.valid" type="submit">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>

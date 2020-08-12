@@ -1,0 +1,33 @@
+<div class="outer">
+  <div class="cancel-btn" (click)="cancel()"><mat-icon>arrow_back_ios</mat-icon></div>
+  <div class="nav">
+    <img src="assets/logo.svg" class="logo">
+    <button class="home-button" (click)="cancel()">Home</button>
+   
+  </div>
+  <div class="data-container">
+   
+  <div class="data-left">
+    <div class="image-upload">
+      <label for="file-input">
+          <img [src]="url"class="profile-image" />
+      </label>
+  
+      <input id="file-input" type="file"  (change)="onSelectFile($event)"/>
+  </div>
+    <div class="change-password-position">
+      <button class="change-password" (click)="openChangePassword()">Change password</button>
+    </div>
+    <!-- <img [src]="url"class="profile-image"  height="200"> <br/>
+    <input type='file' (change)="onSelectFile($event)"> -->
+  </div>
+  <div class="data-right">
+ 
+   <div class="edit-data"> <div class="data1"><label>Name:</label>Name</div><mat-icon (click)="openEditName()">edit</mat-icon></div>
+    <div class="data"><label>E-mail:</label>mail id</div>
+    <div class="data"><label>Mobile:</label>Mobile</div>
+    
+  </div>
+ 
+  </div>
+</div>

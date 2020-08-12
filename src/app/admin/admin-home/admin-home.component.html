@@ -1,0 +1,148 @@
+<div class="outer">
+    <div class="left-container" *ngIf="chatport">
+        <nav class="nav">
+            <img src="assets/pp.jpg" class="nav-left-image">
+            <div class="nav-options">
+                <div class="search">
+                    <input type="text" class="search-field" placeholder="Search"*ngIf="searchShow">
+                    <button type="submit" class="search-button" (click)="fnSearchShow()"><mat-icon >search</mat-icon></button>
+                    
+                </div>
+                <!-- <mat-icon >search</mat-icon> -->
+                <mat-icon >chat</mat-icon>
+                <div>
+                    <mat-icon  [matMenuTriggerFor]="menu">more_vert</mat-icon>
+                    <mat-menu #menu="matMenu"  xPosition="before">
+                        <button mat-menu-item routerLink="/admin/profileview">
+                            <mat-icon>person</mat-icon>
+                            <span>My Account</span>
+                            </button>
+                            <button mat-menu-item (click)="logout()">
+                            <mat-icon>cancel</mat-icon>
+                            <span>Logout</span>
+                            </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </nav>
+        <mat-tab-group>
+            <mat-tab label="Chat">
+                <div class="left-details">
+                    <!-- <div class="left-sidenav">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                        <img src="assets/pp.jpg" class="left-sidenav-profile">
+                    </div> -->
+                    <div class="nav-first-right">
+                        <div class="nav-right-data"  (click)="mobileView()"routerLink="/admin/chat">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line" >
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under">
+                        <div class="nav-right-data" (click)="mobileView()" routerLink="/admin/chat">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line">
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under">
+                        <div class="nav-right-data" (click)="chatOpen()">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line">
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under"> 
+                        <div class="nav-right-data" (click)="chatOpen()">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line">
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under"> 
+                        <div class="nav-right-data" (click)="chatOpen()">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line">
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under"> 
+                        <div class="nav-right-data" (click)="chatOpen()">
+                            <img class="nav-right-pic" src="assets/pp.jpg">
+                            <div class="rightlines">
+                                <div class="right-first-line">
+                                    <p class="institute-name">Christian college</p>
+                                    <p class="time">2:30PM</p>
+                                </div>
+                                <div class="right-second-line">
+                                    <p class="right-message">Lorom ipsum dolor</p>
+                                    <p class="message-count">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="under">  
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="School"> Content 1</mat-tab>
+            <mat-tab label="Super Club"> Content 1</mat-tab>
+            <mat-tab label="Context"> Content 1</mat-tab>
+        </mat-tab-group>
+    </div>
+    <div class="router">
+        <!-- <div class="logo-position" *ngIf="logoOnLoad">
+        <img class="logo2" src="assets/logo2.png">
+         </div> -->
+        <router-outlet></router-outlet>
+    
+    </div>
+</div>
+
+
+
