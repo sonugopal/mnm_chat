@@ -15,12 +15,15 @@ const routes: Routes = [
       },
    
       {
-        path:'adminview/:id',component:SuperAdminAdminComponent,runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+        path:'adminview/:id',component:SuperAdminAdminComponent,runGuardsAndResolvers: 'always',
       },
+      // {
+      //   path:'adminviews/:id',component:SuperAdminAdminComponent,
+      // },
       {
         path:'adminadd',component:SuperAdminAddAdminComponent
       }
-    ]
+    ],
   },
   {
     path:'superadminprofile',component:SuperadminprofileviewComponent
@@ -32,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes,)],
   exports: [RouterModule]
 })
 export class SuperadminRoutingModule { }

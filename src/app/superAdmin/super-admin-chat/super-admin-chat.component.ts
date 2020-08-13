@@ -1,3 +1,4 @@
+import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 @Component({
@@ -7,7 +8,7 @@ import { Location } from '@angular/common';
 })
 export class SuperAdminChatComponent implements OnInit {
   optionSelect:boolean=false;
-  constructor(private location: Location) { }
+  constructor(private location: Location,private home:SuperadminHomeComponent) { }
 
   ngOnInit(): void {
   }
@@ -18,9 +19,7 @@ export class SuperAdminChatComponent implements OnInit {
     this.optionSelect=false;
   }
   cancel() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 50);
+   this.home.chatport=true;
     this.location.back(); // <-- go back to previous location on cancel
   }
 

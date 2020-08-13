@@ -1,11 +1,15 @@
-import { Observable } from 'rxjs';
+import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges,ChangeDetectorRef,OnDestroy} from '@angular/core';
 import { Location } from '@angular/common';
 import { Admin } from 'src/app/_models/user';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { timer } from 'rxjs';
+
 
 @Component({
   selector: 'app-super-admin-admin',
@@ -14,61 +18,40 @@ import { ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush 
 })
 export class SuperAdminAdminComponent implements OnInit {
-id:any;
   addAdmin:boolean=false;
-
+  admin:any;
   adminView:boolean=false;
-  mySubscription: any;
-  admin:Admin[];
+id:any;
   constructor(private location: Location,
     private Router:ActivatedRoute,
     private http:HttpClient,
-    private route:Router) {
-      // this.route.routeReuseStrategy.shouldReuseRoute = () => false;
-
-     }
-
+    private route:Router,
+    private cdRef: ChangeDetectorRef,
+    private home:SuperadminHomeComponent // <== added
+   ) {this.load()}
     
   ngOnInit(): void {
-  
-    
-    this.Router.params.subscribe(
-      params => {
-        this.getAdminDetail(params.id);
-      }
-  );
-  
+  // this.id=this.Router.snapshot.params.id
+    this.Router.params.subscribe(routeParams => {
+      this.getAdminDetail(routeParams.id);
+      
+    });
   }
- 
-
 
   getAdminDetail(id){
-
-    return this.http.post<any>(`${environment.apiUrl}user/super/get-admin-details`,{'id':id}).subscribe((body)=>{
-      this.admin=body;
-      console.log(body)
-      
-      
+    return this.http.post<any>(`${environment.apiUrl}user/super/get-admin-details`,{'id':id}).subscribe((payload)=>{
+      this.admin=payload;
+      console.log(this.admin)
     })
-    
+  
   }
-  adminAdd(){
-    
-    this.addAdmin=true;
-    this.adminView=false;
-    
-  }
-  viewAdmin(){
-    
-    this.addAdmin=false;
-    this.adminView=true;
-    
-  }
+
   cancel() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 50);
+  
+    this.home.chatport=true;
+    this.home.TabIndex=1;
     this.location.back();
      // <-- go back to previous location on cancel
   }
+  load(){}
 }

@@ -25,7 +25,7 @@
                 </div>
             </div>
         </nav>
-        <mat-tab-group >
+        <mat-tab-group [(selectedIndex)]="TabIndex" >
             <mat-tab label="Chat">
                 <ng-template mat-tab-label>
                     <span (click)="getChat()">Chat</span>
@@ -143,7 +143,7 @@
                     <mat-icon>add</mat-icon>
                 </div>
         	    <div class="admin-detail">
-                    <div  *ngFor="let admin of admin" class="admins" (click)="mobileView()" routerLink="/superadmin/adminview/{{admin.user_id}}" > <p class="admin-name">{{admin.name}}</p><img src="assets/pp.jpg" class="admin-image-nav"></div>
+                    <div  *ngFor="let admin of admin" class="admins" (click)="mobileView()"routerLink="/superadmin/adminview/{{admin.user_id}}" > <p class="admin-name">{{admin.name}}</p><img src="assets/pp.jpg" class="admin-image-nav"></div>
                 </div> 
 	        </mat-tab> 
             <mat-tab label="School"> school</mat-tab>

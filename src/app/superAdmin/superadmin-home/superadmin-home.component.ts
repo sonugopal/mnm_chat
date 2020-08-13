@@ -1,3 +1,4 @@
+
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -17,11 +18,14 @@ export class SuperadminHomeComponent implements OnInit {
     screenWidth: number;
   showFiller = false;
   admin:Admin[]
+  public TabIndex = 0;
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
-    private http:HttpClient
+    private http:HttpClient,
+ 
     
     ) { this.getScreenSize();
+ 
       }
 optionSelect:boolean=false;
 searchShow:boolean=false;
@@ -52,6 +56,7 @@ mobileView(){
   }
   
 }
+
 fnSearchShow(){
   this.searchShow=!this.searchShow;
 }
@@ -74,6 +79,13 @@ this.router.navigateByUrl('/superadmin')
   getChat(){
     this.router.navigateByUrl('/superadmin')
   }
+  getAdminProfile(){
+    // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+     this.router.navigate(["/superadmin/adminview/{{admin.user_id}}"])
+// );
+  }
+ 
+
 }
 
 

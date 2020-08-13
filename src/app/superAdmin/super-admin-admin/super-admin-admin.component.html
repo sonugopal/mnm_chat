@@ -1,13 +1,16 @@
+
 <div class="right-container">
     <mat-icon (click)="cancel()" class="back-but">arrow_back_ios</mat-icon>
     <div class="logo-position">
         <img class="logo" src="assets/logo.svg">
     </div>
-        <div class="admin-view">
-            <img src="assets/pp.jpg" class="admin-image">
-            <h3 class="admin-detail-view">{{admin.name}}</h3>
+        <div class="admin-view"  >
+         <button (click)="load()">View</button>
+            <img src="assets/pp.jpg" class="admin-image"  >
+            <h3 class="admin-detail-view" >{{admin.name}}</h3>
             <h3 class="admin-detail-view">{{admin.email}}</h3>
             <h3 class="admin-detail-view">{{admin.mobile}}</h3>
+            
+
         </div>
 </div>
-    

@@ -34,6 +34,13 @@
     .left-sidenav{
         width: 8vw;
     }
+    ::ng-deep .mat-tab-header {
+        overflow-x: scroll !important;
+       
+      }
+      ::ng-deep .mat-tab-header::-webkit-scrollbar {
+        display: none;
+      }
 
 }  
 

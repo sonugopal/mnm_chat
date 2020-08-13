@@ -1,3 +1,4 @@
+import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
 import { environment } from './../../../environments/environment.prod';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -14,7 +15,8 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 export class SuperAdminAddAdminComponent implements OnInit {
   registerForm: FormGroup;
   constructor(  private fb: FormBuilder,private location: Location,private http: HttpClient,
-    private _snackBar: MatSnackBar,) { this.createForm() }
+    private _snackBar: MatSnackBar,
+    private home:SuperadminHomeComponent) { this.createForm() }
 
   ngOnInit(): void {
 
@@ -28,9 +30,8 @@ export class SuperAdminAddAdminComponent implements OnInit {
     });
   }
   cancel() {
-    setTimeout(()=>{
-      window.location.reload();
-    }, 50);
+this.home.chatport=true;
+this.home.TabIndex=1;
     this.location.back(); // <-- go back to previous location on cancel
   }
   submitForm() {
