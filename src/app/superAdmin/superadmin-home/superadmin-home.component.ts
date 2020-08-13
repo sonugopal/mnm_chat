@@ -1,4 +1,5 @@
 
+
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -22,6 +23,7 @@ export class SuperadminHomeComponent implements OnInit {
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
+    
  
     
     ) { this.getScreenSize();
@@ -84,6 +86,7 @@ this.router.navigateByUrl('/superadmin')
      this.router.navigate(["/superadmin/adminview/{{admin.user_id}}"])
 // );
   }
+  
  
 
 }

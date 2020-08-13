@@ -9,6 +9,7 @@ import { Admin } from 'src/app/_models/user';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { timer } from 'rxjs';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -19,30 +20,37 @@ import { timer } from 'rxjs';
 })
 export class SuperAdminAdminComponent implements OnInit {
   addAdmin:boolean=false;
-  admin:any;
+  admin:Observable<any>;
   adminView:boolean=false;
-id:any;
+  foo:boolean=true;
+
   constructor(private location: Location,
     private Router:ActivatedRoute,
     private http:HttpClient,
     private route:Router,
     private cdRef: ChangeDetectorRef,
     private home:SuperadminHomeComponent // <== added
-   ) {this.load()}
+   ) {}
     
   ngOnInit(): void {
+    
   // this.id=this.Router.snapshot.params.id
     this.Router.params.subscribe(routeParams => {
       this.getAdminDetail(routeParams.id);
-      
+  
+   
     });
   }
-
+  
   getAdminDetail(id){
     return this.http.post<any>(`${environment.apiUrl}user/super/get-admin-details`,{'id':id}).subscribe((payload)=>{
       this.admin=payload;
       console.log(this.admin)
+      // this.load();
+      this.cdRef.detectChanges();
+
     })
+    
   
   }
 
@@ -53,5 +61,10 @@ id:any;
     this.location.back();
      // <-- go back to previous location on cancel
   }
-  load(){}
+  load(){
+    
+
+  }
+   
+  
 }
