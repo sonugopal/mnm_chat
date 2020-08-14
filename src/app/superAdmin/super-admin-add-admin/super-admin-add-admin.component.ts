@@ -17,9 +17,10 @@ export class SuperAdminAddAdminComponent implements OnInit {
   constructor(  private fb: FormBuilder,private location: Location,private http: HttpClient,
     private _snackBar: MatSnackBar,
     private home:SuperadminHomeComponent) { this.createForm() }
-
+chatDetail:any[];
   ngOnInit(): void {
-
+    
+   
   }
   createForm() {
     this.registerForm = this.fb.group({
@@ -53,5 +54,6 @@ this.home.TabIndex=1;
     ),(error)=>{
       console.log(error);
     }}
+ 
 
     }

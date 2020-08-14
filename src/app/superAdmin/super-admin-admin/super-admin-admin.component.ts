@@ -1,3 +1,4 @@
+import { adminDetail } from './../../_models/user';
 import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment.prod';
@@ -12,6 +13,7 @@ import { timer } from 'rxjs';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
+
 @Component({
   selector: 'app-super-admin-admin',
   templateUrl: './super-admin-admin.component.html',
@@ -20,7 +22,7 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 })
 export class SuperAdminAdminComponent implements OnInit {
   addAdmin:boolean=false;
-  admin:Observable<any>;
+  admin:Observable<adminDetail[]>;
   adminView:boolean=false;
   foo:boolean=true;
 
@@ -29,7 +31,7 @@ export class SuperAdminAdminComponent implements OnInit {
     private http:HttpClient,
     private route:Router,
     private cdRef: ChangeDetectorRef,
-    private home:SuperadminHomeComponent // <== added
+    private home:SuperadminHomeComponent, // <== added
    ) {}
     
   ngOnInit(): void {

@@ -75,10 +75,15 @@
                         <div class="option"><mat-icon>account_circle</mat-icon><span>Contact</span></div>
                     </div>
                     <div class="chat-function">
+                      
                         <div class="input-msg">
-                            <mat-icon>mood</mat-icon>
-                            <input  placeholder="Type a message" class="input-cont">
-                            
+                            <!-- <form [formGroup]="emojiForm">
+                                <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up"></emoji-mart>
+                               
+                             formControlName="inputField"  
+                       
+                        </form> -->
+                        <input placeholder="Type a message" class="input-cont">
                             <div>
                                 <mat-icon>send</mat-icon>
                             <input #file type="file" [hidden]="true" accept="image/*" (change)="upload(file.files)">

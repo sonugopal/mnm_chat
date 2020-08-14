@@ -4,9 +4,9 @@
     <div class="logo-position">
         <img class="logo" src="assets/logo.svg">
     </div>
-        <div class="admin-view" #view  >
+        <div class="admin-view" #view *ngIf="admin"  >
       
-            <img src="assets/pp.jpg" class="admin-image"  >
+            <img src="assets/pp.jpg" class="admin-image" >
             <h3 class="admin-detail-view" >{{admin.name}}</h3>
             <h3 class="admin-detail-view">{{admin.email}}</h3>
             <h3 class="admin-detail-view">{{admin.mobile}}</h3>

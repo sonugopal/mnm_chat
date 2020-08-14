@@ -42,12 +42,12 @@
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                     </div> -->
-                    <div class="nav-first-right">
+                    <div class="nav-first-right" *ngFor="let chat of chatDetail">
                         <div class="nav-right-data"  (click)="mobileView()"routerLink="/admin/chat">
                             <img class="nav-right-pic" src="assets/pp.jpg">
                             <div class="rightlines">
                                 <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
+                                    <p class="institute-name">{{chat.name}}</p>
                                     <p class="time">2:30PM</p>
                                 </div>
                                 <div class="right-second-line" >
@@ -57,76 +57,6 @@
                             </div>
                         </div>
                         <hr class="under">
-                        <div class="nav-right-data" (click)="mobileView()" routerLink="/admin/chat">
-                            <img class="nav-right-pic" src="assets/pp.jpg">
-                            <div class="rightlines">
-                                <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
-                                    <p class="time">2:30PM</p>
-                                </div>
-                                <div class="right-second-line">
-                                    <p class="right-message">Lorom ipsum dolor</p>
-                                    <p class="message-count">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="under">
-                        <div class="nav-right-data" (click)="chatOpen()">
-                            <img class="nav-right-pic" src="assets/pp.jpg">
-                            <div class="rightlines">
-                                <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
-                                    <p class="time">2:30PM</p>
-                                </div>
-                                <div class="right-second-line">
-                                    <p class="right-message">Lorom ipsum dolor</p>
-                                    <p class="message-count">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="under"> 
-                        <div class="nav-right-data" (click)="chatOpen()">
-                            <img class="nav-right-pic" src="assets/pp.jpg">
-                            <div class="rightlines">
-                                <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
-                                    <p class="time">2:30PM</p>
-                                </div>
-                                <div class="right-second-line">
-                                    <p class="right-message">Lorom ipsum dolor</p>
-                                    <p class="message-count">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="under"> 
-                        <div class="nav-right-data" (click)="chatOpen()">
-                            <img class="nav-right-pic" src="assets/pp.jpg">
-                            <div class="rightlines">
-                                <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
-                                    <p class="time">2:30PM</p>
-                                </div>
-                                <div class="right-second-line">
-                                    <p class="right-message">Lorom ipsum dolor</p>
-                                    <p class="message-count">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="under"> 
-                        <div class="nav-right-data" (click)="chatOpen()">
-                            <img class="nav-right-pic" src="assets/pp.jpg">
-                            <div class="rightlines">
-                                <div class="right-first-line">
-                                    <p class="institute-name">Christian college</p>
-                                    <p class="time">2:30PM</p>
-                                </div>
-                                <div class="right-second-line">
-                                    <p class="right-message">Lorom ipsum dolor</p>
-                                    <p class="message-count">2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="under">  
                     </div>
                 </div>
             </mat-tab>

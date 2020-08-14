@@ -1,5 +1,6 @@
 
 
+
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../../_services/authentication.service';
@@ -8,7 +9,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HostListener } from "@angular/core";
 import { Admin } from 'src/app/_models/user';
+import * as io from 'socket.io-client';
 
+const SOCKET_ENDPOINT='ws://192.168.43.107:5000/'
 @Component({
   selector: 'app-superadmin-home',
   templateUrl: './superadmin-home.component.html',
@@ -20,19 +23,28 @@ export class SuperadminHomeComponent implements OnInit {
   showFiller = false;
   admin:Admin[]
   public TabIndex = 0;
+  chatDetail:any[];
+  socket;
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
+   
     
  
     
-    ) { this.getScreenSize();
+    ) { this.getScreenSize()
  
       }
 optionSelect:boolean=false;
 searchShow:boolean=false;
 chatport:boolean=true;
   ngOnInit(): void {
+    this.loadChat();
+    this.socket = io(SOCKET_ENDPOINT);
+
+
+   
+   
    
   }
   @HostListener('window:resize', ['$event'])
@@ -85,6 +97,21 @@ this.router.navigateByUrl('/superadmin')
     // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
      this.router.navigate(["/superadmin/adminview/{{admin.user_id}}"])
 // );
+  }
+  loadChat(){
+    var currentUser =JSON.parse( localStorage.getItem('currentUser'))
+    console.log(currentUser.api_token)
+    return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',currentUser.api_token).subscribe((body)=>{
+      this.chatDetail=body;
+     
+      this.chatDetail.forEach((room)=>{
+        this.socket.emit('join', room.room_id);
+       
+      })
+     
+    })
+
+
   }
   
  

@@ -15,3 +15,8 @@ export class Admin{
     pro_pic: any;
     id:string;
 }
+export class adminDetail{
+    name:string;
+    mobile:any;
+    email:string;
+}
