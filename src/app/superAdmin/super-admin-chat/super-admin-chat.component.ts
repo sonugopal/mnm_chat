@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, ɵConsole } from '@angular/core';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
 import * as uuid from 'uuid';
@@ -20,7 +20,7 @@ export class SuperAdminChatComponent implements OnInit {
   optionSelect:boolean=false;
   roomId;
   roomName;
-  chatList:[];
+  chatList=[];
   socket: any;
   newMessage:any;
 
@@ -30,18 +30,50 @@ export class SuperAdminChatComponent implements OnInit {
   ngOnInit(): void {
    this.roomId=this.route.snapshot.params['id'];
    this.loadChatHistory()
-   this.socket.on('receive-message', (data) => {
+   this.home.socket.on('receive-message', (data) => {
+     console.log(data)
     if (data) {
-      console.log(data)
-      const li: HTMLLIElement = this.renderer.createElement('li');
-      const div:HTMLDivElement=this.renderer.createElement('div');
-     li.innerHTML = data;
-     li.style.background = 'white';
-     li.style.padding =  '10px 14px';  
-     li.style.margin = '10px';
-    li.style.borderRadius='9px';
+      if(data.room_id==this.roomId){
+        if(data.from!==sessionStorage.getItem('user_id')){
+          const li: HTMLLIElement = this.renderer.createElement('li');
+          this.renderer.addClass(li,'li-class' );
+          const div:HTMLDivElement=this.renderer.createElement('div');
+          this.renderer.addClass(div,data.msg_id );
+          const msg:HTMLParagraphElement=this.renderer.createElement('p');
+          this.renderer.addClass(msg,'msg-class' );
+          // const name:HTMLParagraphElement=this.renderer.createElement('p');
+      // this.renderer.addClass(name,'name-class' );
+          const id:HTMLParagraphElement=this.renderer.createElement('p');
+          this.renderer.addClass(id,`id-class` );
+          const icon:HTMLImageElement=this.renderer.createElement('img');
+          this.renderer.addClass(icon,'status-icon' );
+          div.append(msg,id,icon)
+          li.append(div)
+        msg.innerHTML=data.msg;
+        id.innerHTML=data.msg_id;
+        li.style.background = 'white';
+      
     
-     this.renderer.appendChild(this.ul.nativeElement, li)
+   
+      
+      li.style.maxWidth='70%';
+     
+      li.style.clear='both';
+      li.style.padding='10px';
+      li.style.borderRadius='10px';
+      li.style.marginBottom='5px';
+      li.style.marginTop='5px';
+      li.style.marginRight='2px';
+      li.style.wordWrap='break-word'
+  
+      li.style.fontFamily='Helvetica, Arial, sans-serif';
+      this.renderer.appendChild(this.ul.nativeElement, li)
+
+        }
+       
+
+      }
+   
      
      }
    });
@@ -52,6 +84,49 @@ export class SuperAdminChatComponent implements OnInit {
     return this.http.post(environment.apiUrl+'chat/enter-chat-room',{'room_id':this.roomId}).subscribe((body)=>{
       this.roomName=body['room_name'];
       this.chatList=body['chat_list'];
+      this.chatList.forEach((chat)=>{
+        console.log(chat)
+        const li: HTMLLIElement = this.renderer.createElement('li');
+        this.renderer.addClass(li,'li-class' );
+        const div:HTMLDivElement=this.renderer.createElement('div');
+        this.renderer.addClass(div,chat.msg_id );
+        const msg:HTMLParagraphElement=this.renderer.createElement('p');
+        this.renderer.addClass(msg,'msg-class' );
+        // const name:HTMLParagraphElement=this.renderer.createElement('p');
+    // this.renderer.addClass(name,'name-class' );
+        const id:HTMLParagraphElement=this.renderer.createElement('p');
+        this.renderer.addClass(id,`id-class` );
+        const icon:HTMLImageElement=this.renderer.createElement('img');
+        this.renderer.addClass(icon,'status-icon' );
+        div.append(msg,id,icon)
+        li.append(div)
+      msg.innerHTML=chat.msg;
+      id.innerHTML=chat.msg_id;
+      li.style.background = 'white';
+      console.log(chat.from)
+      console.log(sessionStorage.getItem('user_id'))
+      if(chat.from==sessionStorage.getItem('user_id')){
+        li.style.float='right';
+      }
+      else{
+        li.style.float='left';
+      }
+ 
+    
+    li.style.maxWidth='70%';
+   
+    li.style.clear='both';
+    li.style.padding='10px';
+    li.style.borderRadius='10px';
+    li.style.marginBottom='5px';
+    li.style.marginTop='5px';
+    li.style.marginRight='2px';
+    li.style.wordWrap='break-word'
+
+    li.style.fontFamily='Helvetica, Arial, sans-serif';
+    this.renderer.appendChild(this.ul.nativeElement, li)
+   
+      })
 
     })
   }

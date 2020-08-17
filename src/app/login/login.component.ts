@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.returnUrl]);
             sessionStorage.setItem("role",body.user['role'])
             sessionStorage.setItem('api_token',body['api_token'])
+            sessionStorage.setItem('user_id',body.user['user_id'])
            
         }
         else{
