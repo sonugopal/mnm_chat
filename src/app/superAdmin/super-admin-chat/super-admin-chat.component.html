@@ -41,8 +41,8 @@
                         <mat-icon class="back-button" (click)="cancel()">arrow_back_ios</mat-icon>
                         <img src="assets/pp.jpg" class="image-nav-right" (click)="drawer.toggle()">
                         <div (click)="drawer.toggle()">
-                        <h4 class="profile-name-right">Christian College</h4>
-                        <p>Last seen</p>
+                        <h4 class="profile-name-right" *ngIf="roomName">{{roomName}}</h4>
+                        <!-- <p>Last seen</p> -->
                         </div>
                     </div>
                     <div>
@@ -63,6 +63,9 @@
                 </div>
                 <div class="chat-container" >
                     <div class="chat" (click)="optionClose()">
+                        <ul class="chat-messages-show-list"#ul>
+
+                        </ul>
     
                     </div>
                     <div class="option-select" *ngIf="optionSelect">
@@ -83,9 +86,9 @@
                              formControlName="inputField"  
                        
                         </form> -->
-                        <input placeholder="Type a message" class="input-cont">
+                        <input placeholder="Type a message" class="input-cont" [(ngModel)]="newMessage">
                             <div>
-                                <mat-icon>send</mat-icon>
+                                <mat-icon (click)="sendMessage()">send</mat-icon>
                             <input #file type="file" [hidden]="true" accept="image/*" (change)="upload(file.files)">
                             <mat-icon  #upload (click)="option()">attach_file</mat-icon>
                             <mat-icon >camera_alt</mat-icon>

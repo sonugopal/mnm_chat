@@ -11,7 +11,7 @@ import { HostListener } from "@angular/core";
 import { Admin } from 'src/app/_models/user';
 import * as io from 'socket.io-client';
 
-const SOCKET_ENDPOINT='ws://192.168.43.107:5000/'
+const SOCKET_ENDPOINT='ws://192.168.43.107:3000'
 @Component({
   selector: 'app-superadmin-home',
   templateUrl: './superadmin-home.component.html',
@@ -25,6 +25,7 @@ export class SuperadminHomeComponent implements OnInit {
   public TabIndex = 0;
   chatDetail:any[];
   socket;
+  adminLog=true;
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
@@ -39,8 +40,13 @@ optionSelect:boolean=false;
 searchShow:boolean=false;
 chatport:boolean=true;
   ngOnInit(): void {
+    let role=sessionStorage.getItem('role');
+    if(role=='admin'){
+      this.adminLog=false;
+    }
     this.loadChat();
     this.socket = io(SOCKET_ENDPOINT);
+    
 
 
    
@@ -104,6 +110,7 @@ this.router.navigateByUrl('/superadmin')
     return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',currentUser.api_token).subscribe((body)=>{
       this.chatDetail=body;
      
+     
       this.chatDetail.forEach((room)=>{
         this.socket.emit('join', room.room_id);
        
@@ -113,6 +120,7 @@ this.router.navigateByUrl('/superadmin')
 
 
   }
+
   
  
 

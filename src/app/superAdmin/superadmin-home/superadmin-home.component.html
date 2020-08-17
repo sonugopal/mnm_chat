@@ -46,7 +46,7 @@
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                     </div> -->
                     <div class="nav-first-right" *ngFor="let chat of chatDetail">
-                        <div class="nav-right-data"  (click)="mobileView()"routerLink="/superadmin/chat">
+                        <div class="nav-right-data"  (click)="mobileView()"routerLink="/superadmin/chat/{{chat.room_id}}">
                             <img class="nav-right-pic" src="assets/demo.jpg">
                             <div class="rightlines">
                                 <div class="right-first-line">
@@ -65,7 +65,7 @@
                 </div>
             </mat-tab>
             
-            <mat-tab label="Admin" >
+            <mat-tab label="Admin" *ngIf="adminLog">
                 <ng-template mat-tab-label>
                     <span (click)="getAdmin()">Admin</span>
                 </ng-template>

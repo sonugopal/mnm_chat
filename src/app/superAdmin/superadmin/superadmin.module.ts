@@ -15,7 +15,8 @@ import {MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { PickerModule } from '@ctrl/ngx-emoji-mart'
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+
 @NgModule({
   declarations: [
     SuperadminHomeComponent,
@@ -36,7 +37,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart'
     ReactiveFormsModule,
     MatInputModule,
     MatSnackBarModule,
-    PickerModule
+    PickerModule,
+  
   ]
 })
 export class SuperadminModule { }

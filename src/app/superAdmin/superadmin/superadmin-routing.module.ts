@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path:'',component:SuperadminHomeComponent,canActivate: [AuthGuard] ,children:[
       {
-        path:'chat',component:SuperAdminChatComponent
+        path:'chat/:id',component:SuperAdminChatComponent
       },
    
       {

@@ -40,9 +40,8 @@ export class LoginComponent implements OnInit {
     const currentUser =JSON.parse( localStorage.getItem('currentUser'))
     
    if(currentUser){
-    if(currentUser.user.role=="super"){
-      this.router.navigate(['/superadmin'] );
-    }
+    this.router.navigate(['/superadmin'] );
+  
    }
 
     this.loginForm = this.fb.group({
@@ -75,15 +74,13 @@ export class LoginComponent implements OnInit {
     this.AuthenticationService.login(this.f.username.value, this.f.password.value)
         .pipe(first())
         .subscribe((body)=>{
-        
+
           
           if(body['status']==true){
-            if(body.user['role']=="super"){
-              this.router.navigate([this.returnUrl]);
-              }
-            if(body.user['role']=="admin"){
-              this.router.navigate(["/admin"])
-            }
+       
+            this.router.navigate([this.returnUrl]);
+            sessionStorage.setItem("role",body.user['role'])
+            sessionStorage.setItem('api_token',body['api_token'])
            
         }
         else{

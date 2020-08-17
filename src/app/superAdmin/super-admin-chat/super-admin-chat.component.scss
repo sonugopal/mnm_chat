@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
 @media(min-width:100px) and (max-width:500px){
     .right-container{
         width: 100vw;
@@ -185,3 +189,15 @@
 
 
 }
+.chat-messages-show-list {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+ }
+ .chat{
+  
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+ }
+ 

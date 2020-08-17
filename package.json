@@ -22,10 +22,12 @@
     "@angular/platform-browser-dynamic": "~10.0.4",
     "@angular/router": "~10.0.4",
     "@ctrl/ngx-emoji-mart": "^4.0.2",
+    "angular2-uuid": "^1.1.1",
     "ngx-webcam": "^0.3.0",
     "rxjs": "~6.5.5",
     "socket.io-client": "^2.3.0",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
