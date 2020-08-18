@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, ɵConsole } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, ɵConsole, AfterViewChecked } from '@angular/core';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
 import * as uuid from 'uuid';
@@ -15,7 +15,7 @@ import * as uuid from 'uuid';
   templateUrl: './super-admin-chat.component.html',
   styleUrls: ['./super-admin-chat.component.scss']
 })
-export class SuperAdminChatComponent implements OnInit {
+export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
   emojiForm:FormGroup
   optionSelect:boolean=false;
   roomId;
@@ -26,8 +26,14 @@ export class SuperAdminChatComponent implements OnInit {
 
   constructor(private location: Location,private home:SuperadminHomeComponent,private route:ActivatedRoute
     ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef) { }
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
     @ViewChild('ul') ul: ElementRef;
+    @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+    // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   ngOnInit(): void {
+    console.log(sessionStorage.getItem('api_token'))
    this.roomId=this.route.snapshot.params['id'];
    this.loadChatHistory()
    this.home.socket.on('receive-message', (data) => {
@@ -144,13 +150,14 @@ export class SuperAdminChatComponent implements OnInit {
     let data = this.emojiForm.get('inputField');
     data.patchValue(data.value + $event.emoji.native)
   }
-  sendMessage(){
+  sendMessage(event){
+    
     var temp_id=uuid.v4();
     let message={
       msg:this.newMessage,
       room_id:this.roomId,
       temp_id:temp_id,
-      api_token:sessionStorage.getItem('api_token')
+      user_id:sessionStorage.getItem('user_id')
     }
   
     this.home.socket.emit('send-message',message,(response)=>{
@@ -169,13 +176,16 @@ export class SuperAdminChatComponent implements OnInit {
     this.renderer.addClass(msg,'msg-class' );
     // const name:HTMLParagraphElement=this.renderer.createElement('p');
     // this.renderer.addClass(name,'name-class' );
+    const flex:HTMLDivElement=this.renderer.createElement('div');
+    this.renderer.addClass(flex,'flex-time');
     const id:HTMLParagraphElement=this.renderer.createElement('p');
     this.renderer.addClass(id,`id-class` );
   
     // const time:HTMLParagraphElement=this.renderer.createElement('p');
     const icon:HTMLImageElement=this.renderer.createElement('img');
     this.renderer.addClass(icon,'status-icon' );
-  div.append(msg,id,icon)
+    flex.append(icon)
+  div.append(msg,id,flex)
     li.append(div)
    msg.innerHTML=this.newMessage;
    id.innerHTML=temp_id;
@@ -194,9 +204,17 @@ export class SuperAdminChatComponent implements OnInit {
     li.style.wordWrap='break-word'
 
     li.style.fontFamily='Helvetica, Arial, sans-serif';
-    this.renderer.appendChild(this.ul.nativeElement, li)
+    this.renderer.appendChild(this.ul.nativeElement, li);
+    this.scrollToBottom();
+    // var objDiv=document.getElementsByClassName('chat-conntainer')[0];
+    // objDiv.scrollTop=objDiv.scrollHeight
     // document.getElementById('message-list').appendChild(element)
     
     this.newMessage = '';
   }
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
+}
 }

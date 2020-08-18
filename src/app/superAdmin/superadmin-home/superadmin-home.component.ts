@@ -40,11 +40,12 @@ optionSelect:boolean=false;
 searchShow:boolean=false;
 chatport:boolean=true;
   ngOnInit(): void {
+    this.loadChat();
     let role=sessionStorage.getItem('role');
     if(role=='admin'){
       this.adminLog=false;
     }
-    this.loadChat();
+    
     this.socket = io(SOCKET_ENDPOINT);
     
 
@@ -105,9 +106,8 @@ this.router.navigateByUrl('/superadmin')
 // );
   }
   loadChat(){
-    var currentUser =JSON.parse( localStorage.getItem('currentUser'))
-    console.log(currentUser.api_token)
-    return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',currentUser.api_token).subscribe((body)=>{
+  
+    return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',null).subscribe((body)=>{
       this.chatDetail=body;
      
      
