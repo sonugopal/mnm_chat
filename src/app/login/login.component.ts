@@ -9,7 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChangepasswordComponent } from '../shared/changepassword/changepassword.component';
 import { Router, ActivatedRoute, CanActivate } from '@angular/router';
 import { first } from 'rxjs/operators';
-
+import { HttpHeaders } from '@angular/common/http';
+const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'strAppInfo': 'TNT1' })
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

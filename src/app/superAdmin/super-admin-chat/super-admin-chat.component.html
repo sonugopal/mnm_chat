@@ -64,9 +64,9 @@
                 <div class="chat-container" #scrollMe>
                     <div class="chat" (click)="optionClose()">
                         <ul class="chat-messages-show-list"#ul>
-
+                           
                         </ul>
-    
+                      
                     </div>
                     <div class="option-select" *ngIf="optionSelect">
                         <div class="option"><mat-icon>text_snippet</mat-icon><span>Document</span></div>
@@ -86,7 +86,7 @@
                              formControlName="inputField"  
                        
                         </form> -->
-                        <input (keydown.enter)="sendMessage($event)" placeholder="Type a message" class="input-cont" [(ngModel)]="newMessage">
+                        <input type="text"(keydown.enter)="sendMessage($event)" placeholder="Type a message" class="input-cont" [(ngModel)]="newMessage">
                             <div>
                             <mat-icon  (click)="sendMessage($event)">send</mat-icon>
                             <input #file type="file" [hidden]="true" accept="image/*" (change)="upload(file.files)">

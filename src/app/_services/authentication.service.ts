@@ -2,11 +2,11 @@ import { User } from './../_models/user';
 import { environment } from './../../environments/environment.prod';
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
+const headers = new HttpHeaders({ 'Content-Type': 'application/json', 'strAppInfo': 'TNT1' })
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;

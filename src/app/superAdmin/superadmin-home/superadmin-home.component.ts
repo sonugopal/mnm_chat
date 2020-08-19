@@ -33,14 +33,15 @@ export class SuperadminHomeComponent implements OnInit {
     
  
     
-    ) { this.getScreenSize()
+    ) { this.getScreenSize();
+      this.loadChat();
  
       }
 optionSelect:boolean=false;
 searchShow:boolean=false;
 chatport:boolean=true;
   ngOnInit(): void {
-    this.loadChat();
+    
     let role=sessionStorage.getItem('role');
     if(role=='admin'){
       this.adminLog=false;
@@ -48,7 +49,17 @@ chatport:boolean=true;
     
     this.socket = io(SOCKET_ENDPOINT);
     
+this.socket.on('receive-message',(data)=>{
+  if(data){
+   const room=document.getElementsByClassName(data.room_id)[0];
+   const recent=room.getElementsByClassName('recent-message')[0];
+   recent.innerHTML=data.msg.slice(0,10)
+   const time=room.getElementsByClassName('time')[0];
+   time.innerHTML=this.getTime(data.time)
 
+
+  }
+})
 
    
    
@@ -84,6 +95,7 @@ fnSearchShow(){
 logout(){
   this.AuthenticationService.logout();
   this.router.navigateByUrl('/login')
+  sessionStorage.clear()
   
 }
 getAdmin(index:number){
@@ -109,6 +121,7 @@ this.router.navigateByUrl('/superadmin')
   
     return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',null).subscribe((body)=>{
       this.chatDetail=body;
+     console.log(this.chatDetail);
      
      
       this.chatDetail.forEach((room)=>{
@@ -120,6 +133,14 @@ this.router.navigateByUrl('/superadmin')
 
 
   }
+  getTime(timestamp){
+    let time=new Date(timestamp)
+    let hour=time.getHours()
+    let minutes=time.getMinutes()
+    let msg_time=hour+':'+minutes
+    return msg_time
+  }
+  update
 
   
  

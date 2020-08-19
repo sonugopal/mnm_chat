@@ -42,37 +42,51 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       if(data.room_id==this.roomId){
         if(data.from!==sessionStorage.getItem('user_id')){
           const li: HTMLLIElement = this.renderer.createElement('li');
-          this.renderer.addClass(li,'li-class' );
+          this.renderer.addClass(li,'receive-msg-list' );
           const div:HTMLDivElement=this.renderer.createElement('div');
           this.renderer.addClass(div,data.msg_id );
+          const name:HTMLParagraphElement=this.renderer.createElement('p');
+          this.renderer.addClass(name,'receive-msg-name');
           const msg:HTMLParagraphElement=this.renderer.createElement('p');
-          this.renderer.addClass(msg,'msg-class' );
+          this.renderer.addClass(msg,'receive-msg-class' );
           // const name:HTMLParagraphElement=this.renderer.createElement('p');
       // this.renderer.addClass(name,'name-class' );
           const id:HTMLParagraphElement=this.renderer.createElement('p');
-          this.renderer.addClass(id,`id-class` );
-          const icon:HTMLImageElement=this.renderer.createElement('img');
-          this.renderer.addClass(icon,'status-icon' );
-          div.append(msg,id,icon)
+          this.renderer.addClass(id,`receive-msg-id` );
+          const icon=this.renderer.createElement('mat-icon');
+          if(data.status=="delivered"){
+            this.renderer.appendChild(icon, this.renderer.createText('done_all'));
+          }
+          else{
+            this.renderer.appendChild(icon, this.renderer.createText('done'));
+          }
+        
+          
+          this.renderer.addClass(icon, 'mat-icon');
+        this.renderer.addClass(icon, 'material-icons');
+          this.renderer.addClass(icon,'receive-msg-status-icon' );
+          div.append(name,msg,id,icon)
           li.append(div)
         msg.innerHTML=data.msg;
         id.innerHTML=data.msg_id;
-        li.style.background = 'white';
+        name.innerHTML=data.user;
+        name.style.color="orangered";
+      //   li.style.background = 'white';
       
     
    
       
-      li.style.maxWidth='70%';
+      // li.style.maxWidth='70%';
      
-      li.style.clear='both';
-      li.style.padding='10px';
-      li.style.borderRadius='10px';
-      li.style.marginBottom='5px';
-      li.style.marginTop='5px';
-      li.style.marginRight='2px';
-      li.style.wordWrap='break-word'
-  
-      li.style.fontFamily='Helvetica, Arial, sans-serif';
+      // li.style.clear='both';
+      // li.style.padding='10px';
+      // li.style.borderRadius='10px';
+      // li.style.marginBottom='5px';
+      // li.style.marginTop='5px';
+      // li.style.marginRight='2px';
+      // li.style.wordWrap='break-word'
+      // id.style.display='none';
+      // li.style.fontFamily='Helvetica, Arial, sans-serif';
       this.renderer.appendChild(this.ul.nativeElement, li)
 
         }
@@ -93,43 +107,65 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       this.chatList.forEach((chat)=>{
         console.log(chat)
         const li: HTMLLIElement = this.renderer.createElement('li');
-        this.renderer.addClass(li,'li-class' );
+        this.renderer.addClass(li,'history-msg-list' );
         const div:HTMLDivElement=this.renderer.createElement('div');
         this.renderer.addClass(div,chat.msg_id );
+        const name:HTMLParagraphElement=this.renderer.createElement('p');
+        this.renderer.addClass(name,'history-msg-name');
         const msg:HTMLParagraphElement=this.renderer.createElement('p');
-        this.renderer.addClass(msg,'msg-class' );
+        this.renderer.addClass(msg,'history-msg-content' );
         // const name:HTMLParagraphElement=this.renderer.createElement('p');
     // this.renderer.addClass(name,'name-class' );
         const id:HTMLParagraphElement=this.renderer.createElement('p');
-        this.renderer.addClass(id,`id-class` );
-        const icon:HTMLImageElement=this.renderer.createElement('img');
-        this.renderer.addClass(icon,'status-icon' );
-        div.append(msg,id,icon)
+        this.renderer.addClass(id,`history-msg-id` );
+        const icon=this.renderer.createElement('mat-icon');
+        if(chat.status=="delivered"){
+          this.renderer.appendChild(icon, this.renderer.createText('done_all'));
+        }
+        else{
+          this.renderer.appendChild(icon, this.renderer.createText('done'));
+        }
+        
+        this.renderer.addClass(icon, 'mat-icon');
+      this.renderer.addClass(icon, 'material-icons');
+        this.renderer.addClass(icon,'history-msg-status-icon' );
+      
+        div.append(name,msg,id,icon)
         li.append(div)
       msg.innerHTML=chat.msg;
       id.innerHTML=chat.msg_id;
-      li.style.background = 'white';
+      name.innerHTML=chat.user;
+    
       console.log(chat.from)
       console.log(sessionStorage.getItem('user_id'))
       if(chat.from==sessionStorage.getItem('user_id')){
         li.style.float='right';
+        name.style.display='none';
+        li.style.background='white   ';
+        li.style.color='black';
+        li.style.marginRight='5%';
       }
       else{
         li.style.float='left';
+        li.style.background = 'white ';
+        icon.style.display='none';
+        li.style.color='black';
+        li.style.marginLeft='5%';
+        name.style.color="orangered"
       }
- 
+     
     
-    li.style.maxWidth='70%';
-   
-    li.style.clear='both';
-    li.style.padding='10px';
-    li.style.borderRadius='10px';
-    li.style.marginBottom='5px';
-    li.style.marginTop='5px';
-    li.style.marginRight='2px';
-    li.style.wordWrap='break-word'
+    // li.style.maxWidth='70%';
+    // id.style.display='none';
+    // li.style.clear='both';
+    // li.style.padding='10px';
+    // li.style.borderRadius='10px';
+    // li.style.marginBottom='5px';
+    // li.style.marginTop='5px';
+    // li.style.marginRight='2px';
+    // li.style.wordWrap='break-word'
 
-    li.style.fontFamily='Helvetica, Arial, sans-serif';
+    // li.style.fontFamily='Helvetica, Arial, sans-serif';
     this.renderer.appendChild(this.ul.nativeElement, li)
    
       })
@@ -151,6 +187,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     data.patchValue(data.value + $event.emoji.native)
   }
   sendMessage(event){
+    this.newMessage=this.newMessage.trim()
+    if(this.newMessage){
+    console.log(this.newMessage.length);
+    
     
     var temp_id=uuid.v4();
     let message={
@@ -163,47 +203,52 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     this.home.socket.emit('send-message',message,(response)=>{
       console.log(response)
       let id_change=document.getElementsByClassName(temp_id)
-      id_change[0].getElementsByClassName('id-class')[0].innerHTML=response.msg_id;
-      let status=id_change[0].getElementsByTagName('img')[0].src="assets/check.svg"
+      id_change[0].getElementsByClassName('send-msg-id')[0].innerHTML=response.msg_id;
+      let status=id_change[0].getElementsByTagName('mat-icon')[0].innerHTML="done"
     
       
     });
     const li: HTMLLIElement = this.renderer.createElement('li');
-    this.renderer.addClass(li,'li-class' );
+    this.renderer.addClass(li,'send-msg-list' );
     const div:HTMLDivElement=this.renderer.createElement('div');
     this.renderer.addClass(div,temp_id );
     const msg:HTMLParagraphElement=this.renderer.createElement('p');
-    this.renderer.addClass(msg,'msg-class' );
+    this.renderer.addClass(msg,'send-msg-content' );
     // const name:HTMLParagraphElement=this.renderer.createElement('p');
     // this.renderer.addClass(name,'name-class' );
     const flex:HTMLDivElement=this.renderer.createElement('div');
-    this.renderer.addClass(flex,'flex-time');
+    this.renderer.addClass(flex,'send-msg-time');
     const id:HTMLParagraphElement=this.renderer.createElement('p');
-    this.renderer.addClass(id,`id-class` );
+    this.renderer.addClass(id,`send-msg-id` );
   
     // const time:HTMLParagraphElement=this.renderer.createElement('p');
-    const icon:HTMLImageElement=this.renderer.createElement('img');
-    this.renderer.addClass(icon,'status-icon' );
+    const icon=this.renderer.createElement('mat-icon');
+    this.renderer.appendChild(icon, this.renderer.createText('query_builder'));
+    
+    this.renderer.addClass(icon, 'mat-icon');
+  this.renderer.addClass(icon, 'material-icons');
+    this.renderer.addClass(icon,'send-msg-status-icon' );
     flex.append(icon)
   div.append(msg,id,flex)
     li.append(div)
    msg.innerHTML=this.newMessage;
    id.innerHTML=temp_id;
-    icon.src="assets/timer.svg"
-    li.style.background = 'white';
  
-    li.style.float='right';
-    li.style.maxWidth='70%';
+  
+    // li.style.background = 'white';
+    // id.style.display='none';
+    // li.style.float='right';
+    // li.style.maxWidth='70%';
    
-    li.style.clear='both';
-    li.style.padding='10px';
-    li.style.borderRadius='10px';
-    li.style.marginBottom='5px';
-    li.style.marginTop='5px';
-    li.style.marginRight='2px';
-    li.style.wordWrap='break-word'
+    // li.style.clear='both';
+    // li.style.padding='10px';
+    // li.style.borderRadius='10px';
+    // li.style.marginBottom='5px';
+    // li.style.marginTop='5px';
+    // li.style.marginRight='2px';
+    // li.style.wordWrap='break-word'
 
-    li.style.fontFamily='Helvetica, Arial, sans-serif';
+    // li.style.fontFamily='Helvetica, Arial, sans-serif';
     this.renderer.appendChild(this.ul.nativeElement, li);
     this.scrollToBottom();
     // var objDiv=document.getElementsByClassName('chat-conntainer')[0];
@@ -211,6 +256,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     // document.getElementById('message-list').appendChild(element)
     
     this.newMessage = '';
+  }
   }
   scrollToBottom(): void {
     try {
