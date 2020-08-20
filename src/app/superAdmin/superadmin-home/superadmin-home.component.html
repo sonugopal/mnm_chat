@@ -51,11 +51,12 @@
                             <div class="rightlines">
                                 <div class="right-first-line">
                                     <p class="institute-name">{{chat.name}}</p>
-                                    <p class="time">{{ getTime(chat.last_message.time) }}</p>
+                                    <p class="time">{{chat.last_message[0].last_time | date : 'shortTime'}}</p>
                                 </div>
+                                <!-- {{ getTime(chat.last_message[0].last_time) }} -->
                                 <div class="right-second-line" >
-                                    <p class="right-message recent-message">{{chat.last_message.msg}}</p>
-                                    <p class="message-count">2</p>
+                                    <p class="right-message recent-message">{{chat.last_message[0].last_msg}}</p>
+                                    <!-- <p class="message-count">2</p> -->
                                 </div>
                             </div>
                         </div>

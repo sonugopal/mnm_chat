@@ -11,7 +11,7 @@ import { HostListener } from "@angular/core";
 import { Admin } from 'src/app/_models/user';
 import * as io from 'socket.io-client';
 
-const SOCKET_ENDPOINT='ws://192.168.43.107:3000'
+const SOCKET_ENDPOINT='ws://192.168.137.220:3000'
 @Component({
   selector: 'app-superadmin-home',
   templateUrl: './superadmin-home.component.html',
@@ -51,13 +51,14 @@ chatport:boolean=true;
     
 this.socket.on('receive-message',(data)=>{
   if(data){
+    if(this.screenWidth>500){
    const room=document.getElementsByClassName(data.room_id)[0];
    const recent=room.getElementsByClassName('recent-message')[0];
    recent.innerHTML=data.msg.slice(0,10)
-   const time=room.getElementsByClassName('time')[0];
-   time.innerHTML=this.getTime(data.time)
+  //  const time=room.getElementsByClassName('time')[0];
+  //  time.innerHTML=this.getTime(data.time)
 
-
+    }
   }
 })
 
@@ -133,13 +134,13 @@ this.router.navigateByUrl('/superadmin')
 
 
   }
-  getTime(timestamp){
-    let time=new Date(timestamp)
-    let hour=time.getHours()
-    let minutes=time.getMinutes()
-    let msg_time=hour+':'+minutes
-    return msg_time
-  }
+  // getTime(timestamp){
+  //   let time=new Date(timestamp)
+  //   let hour=time.getHours()
+  //   let minutes=time.getMinutes()
+  //   let msg_time=hour+':'+minutes
+  //   return msg_time
+  // }
   update
 
   

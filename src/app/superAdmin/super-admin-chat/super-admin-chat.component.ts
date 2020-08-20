@@ -33,6 +33,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     @ViewChild('scrollMe') private myScrollContainer: ElementRef;
     // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   ngOnInit(): void {
+    let audio = new Audio();
+      
+    audio.src = "assets/notify.mp3";
+    audio.load();
     console.log(sessionStorage.getItem('api_token'))
    this.roomId=this.route.snapshot.params['id'];
    this.loadChatHistory()
@@ -88,6 +92,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       // id.style.display='none';
       // li.style.fontFamily='Helvetica, Arial, sans-serif';
       this.renderer.appendChild(this.ul.nativeElement, li)
+   
+      audio.play();
+   
+    
 
         }
        
