@@ -1,5 +1,7 @@
 <div class="outer">
+    
     <div class="left-container" *ngIf="chatport">
+        
         <nav class="nav">
             <img src="assets/demo.jpg" class="nav-left-image">
             <div class="nav-options">
@@ -9,7 +11,7 @@
                     
                 </div>
                 <!-- <mat-icon >search</mat-icon> -->
-                <mat-icon >chat</mat-icon>
+                <mat-icon (click)="showAll()">chat</mat-icon>
                 <div>
                     <mat-icon  [matMenuTriggerFor]="menu">more_vert</mat-icon>
                     <mat-menu #menu="matMenu"  xPosition="before">
@@ -45,22 +47,27 @@
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                     </div> -->
-                    <div class="nav-first-right" *ngFor="let chat of chatDetail">
-                        <div  class="nav-right-data {{chat.room_id}}"  (click)="mobileView()"routerLink="/superadmin/chat/{{chat.room_id}}">
+                    <div class="nav-first-right" >
+                        <div *ngFor="let chat of chatDetail">
+                        <div *ngIf="chat.last_message[0]" class="nav-right-data {{chat.room_id}}"  (click)="mobileView()"routerLink="/superadmin/chat/{{chat.room_id}}">
                             <img class="nav-right-pic" src="assets/demo.jpg">
                             <div class="rightlines">
                                 <div class="right-first-line">
                                     <p *ngIf="chat" class="institute-name">{{chat.name}}</p>
-                                    <p *ngIf="chat.last_message"class="time">{{chat.last_message[0].last_time | date : 'shortTime'}}</p>
+                                    <p *ngIf="chat.last_message[0]"class="time">{{chat.last_message[0].last_time | date : 'shortTime'}}</p>
                                 </div>
                                 <!-- {{ getTime(chat.last_message[0].last_time) }} -->
                                 <div class="right-second-line" >
-                                    <p *ngIf="chat.last_message" class="right-message recent-message">{{chat.last_message[0].last_msg}}</p>
+                                    <p *ngIf="chat.last_message[0]" class="right-message recent-message">{{(chat.last_message[0].last_msg).slice(0,10)}}</p>
                                     <!-- <p class="message-count">2</p> -->
                                 </div>
                             </div>
+                           
                         </div>
-                        <hr class="under">
+                        <!-- <hr class="under"> -->
+                    </div>
+                        
+                     
                       
                     </div>
                 </div>
@@ -82,6 +89,23 @@
             <mat-tab label="Super Club"> super club</mat-tab>
             <mat-tab label="Context"> Context</mat-tab>
         </mat-tab-group>
+    </div>
+
+    <div *ngIf="show" class="show-all left-container">
+        <div class="contact-page">
+        <div class="show-nav">
+            <mat-icon class="back-btn"(click)="showChat()">keyboard_backspace</mat-icon>
+            <div  class="show-nav-header"><p>New Chat</p></div>
+            <div class="null-dot">.</div>
+        </div>
+        <div class="list-all" *ngFor="let contact of contacts">
+            <div class="contact" (click)="singleChat(contact.user_id)">
+            <img class="contact-img" src="assets/demo.jpg">
+            <p class="contact-name">{{contact.name}}</p>
+            </div>
+            
+        </div>
+        </div>
     </div>
     <div class="router">
         <router-outlet></router-outlet>

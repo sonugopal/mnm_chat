@@ -100,6 +100,9 @@
       
     //    height: 85vh;
     .send-msg-list{
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-between;
         color: black;
         background: white     ;
         // background: white;
@@ -116,6 +119,7 @@
         word-wrap: break-word;
         .send-msg-content{
             margin-bottom: 0 !important;
+            font-size: 0.8rem;
         }
         .send-msg-id{
             display: none;
@@ -128,6 +132,23 @@
             margin-bottom: 1px;
             height: 12px;
             width: 6px;
+        }
+        .send-msg-time{
+            justify-content: flex-end;
+            display: flex;
+            align-items:baseline;
+            margin-bottom: 0 !important;
+            margin: 0 0 0px !important;
+        }
+        .send-time{
+            font-size: 8px;
+            color:gray
+        }
+        .send-message-sender{
+            max-width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
         }
    
     }
@@ -148,6 +169,7 @@
         word-wrap: break-word;
         .receive-msg-content{
             margin-bottom: 0 !important;
+            font-size: 0.8rem;
         }
         .receive-msg-id{
             display: none;
@@ -155,6 +177,21 @@
         .receive-msg-status-icon{
         display: none;
         }
+        .receive-msg-flex{
+            display: flex;
+            justify-content: flex-end;
+            align-items: baseline;
+            margin: 0 0 0px !important;
+        }
+        .receive-msg-time{
+            font-size: 8px;
+            color:gray
+        }
+        .receive-msg-name{
+            font-size: 10px;
+            margin: 0 0 0px !important;
+        }
+     
    
     }
     .history-msg-list{
@@ -173,6 +210,7 @@
         word-wrap: break-word;
         .history-msg-content{
             margin-bottom: 0 !important;
+            font-size: 0.8rem;
         }
         .history-msg-id{
             display: none;
@@ -185,6 +223,20 @@
             margin-bottom: 1px;
             height: 12px;
             width: 6px;
+        }
+        .history-msg-flex{
+            display: flex;
+            justify-content: flex-end;
+            align-items: baseline;
+            margin: 0 0 0px !important;
+        }
+        .history-msg-time{
+            font-size: 8px;
+            color:gray
+        }
+        .history-msg-name{
+            font-size: 10px;
+            margin: 0 0 0px !important;
         }
    
     }
@@ -312,6 +364,9 @@
      justify-content: center;
      background-color: white;
      border-radius: 10px;
+ }
+ .send-btn{
+     color:orangered ;
  }
 //  .li-class{
 //      background-color: white;

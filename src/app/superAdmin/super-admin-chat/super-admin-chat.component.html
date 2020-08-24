@@ -86,15 +86,20 @@
                              formControlName="inputField"  
                        
                         </form> -->
-                        <input type="text"(keydown.enter)="sendMessage($event)" placeholder="Type a message" class="input-cont" [(ngModel)]="newMessage">
+                        <textarea matInput
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"type="text"(keydown.enter)="sendMessage($event)" placeholder="Type a message" class="input-cont" [(ngModel)]="newMessage"></textarea>
                             <div>
-                            <mat-icon  (click)="sendMessage($event)">send</mat-icon>
+                            
                             <input #file type="file" [hidden]="true" accept="image/*" (change)="upload(file.files)">
                             <mat-icon  #upload (click)="option()">attach_file</mat-icon>
                             <mat-icon >camera_alt</mat-icon>
                             </div>
                         </div>
-                        <button class="voice"><mat-icon>keyboard_voice</mat-icon></button>
+                        <mat-icon class="material-icons-outlined"  (click)="sendMessage($event)">send</mat-icon>
+                        <!-- <button class="voice"><mat-icon>keyboard_voice</mat-icon></button> -->
                     </div>
                 </div>
             </div>

@@ -18,6 +18,8 @@ const SOCKET_ENDPOINT='ws://192.168.137.215:3000'
   styleUrls: ['./superadmin-home.component.scss']
 })
 export class SuperadminHomeComponent implements OnInit {
+  outer=true;
+  show=false;
   screenHeight: number;
     screenWidth: number;
   showFiller = false;
@@ -26,6 +28,8 @@ export class SuperadminHomeComponent implements OnInit {
   chatDetail:any[];
   socket;
   adminLog=true;
+  contacts: Object;
+  single: Object;
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
@@ -136,9 +140,31 @@ this.router.navigateByUrl('/superadmin')
   }
 
 
-  
+  showAll(){
+    this.chatport=false;
+    this.show=true;
+    return this.http.post(environment.apiUrl+'user/get-all-members',null).subscribe((body)=>{
+      this.contacts=body;
+      console.log(this.contacts)
+    })
+  }
  
+showChat(){
+  this.chatport =true;
+  this.show=false
+}
+singleChat(e){
 
+  let param={
+   "user_id":e
+  }
+  return this.http.post(environment.apiUrl+'chat/get-personal-chat',param).subscribe((res)=>{
+    this.single=res;
+  
+    this.router.navigateByUrl('superadmin/chat/'+this.single)
+  })
+ 
+}
 }
 
 

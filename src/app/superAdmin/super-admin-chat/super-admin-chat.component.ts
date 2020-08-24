@@ -5,10 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { SuperadminHomeComponent } from './../superadmin-home/superadmin-home.component';
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, ɵConsole, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, ɵConsole, AfterViewChecked, NgZone } from '@angular/core';
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment.prod';
 import * as uuid from 'uuid';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field/autosize';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-super-admin-chat',
@@ -25,7 +27,8 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
   newMessage:any;
 
   constructor(private location: Location,private home:SuperadminHomeComponent,private route:ActivatedRoute
-    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef,) { }
+    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef,private _ngZone: NgZone) { }
+    @ViewChild('autosize') autosize: CdkTextareaAutosize;
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
@@ -67,6 +70,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       // this.renderer.addClass(name,'name-class' );
           const id:HTMLParagraphElement=this.renderer.createElement('p');
           this.renderer.addClass(id,`receive-msg-id` );
+          const flex:HTMLDivElement=this.renderer.createElement('div');
+          this.renderer.addClass(flex,'receive-msg-flex')
+          const time:HTMLParagraphElement=this.renderer.createElement('p');
+          this.renderer.addClass(time,'receive-msg-time');
           const icon=this.renderer.createElement('mat-icon');
           if(data.status=="delivered"){
             this.renderer.appendChild(icon, this.renderer.createText('done_all'));
@@ -80,12 +87,14 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
           this.renderer.addClass(icon, 'mat-icon');
         this.renderer.addClass(icon, 'material-icons');
           this.renderer.addClass(icon,'receive-msg-status-icon' );
-          div.append(name,msg,id,icon)
+          flex.append(time,icon)
+          div.append(name,msg,id,flex)
           li.append(div)
         msg.innerHTML=data.msg;
         id.innerHTML=data.msg_id;
         name.innerHTML=data.user;
         name.style.color="orangered";
+        time.innerHTML=this.msgTime(data.time);
       //   li.style.background = 'white';
       
     
@@ -120,6 +129,12 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
   
    
   }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1))
+        .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
   loadChatHistory(){
     return this.http.post(environment.apiUrl+'chat/enter-chat-room',{'room_id':this.roomId}).subscribe((body)=>{
       this.roomName=body['room_name'];
@@ -147,7 +162,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     // this.renderer.addClass(name,'name-class' );
         const id:HTMLParagraphElement=this.renderer.createElement('p');
         this.renderer.addClass(id,`history-msg-id` );
+        const flex:HTMLDivElement=this.renderer.createElement('div');
+        this.renderer.addClass(flex,'history-msg-flex')
         const time:HTMLParagraphElement=this.renderer.createElement('p');
+        this.renderer.addClass(time,'history-msg-time')
         const icon=this.renderer.createElement('mat-icon');
         if(chat.status=="delivered"){
           this.renderer.appendChild(icon, this.renderer.createText('done_all'));
@@ -159,13 +177,14 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
         this.renderer.addClass(icon, 'mat-icon');
       this.renderer.addClass(icon, 'material-icons');
         this.renderer.addClass(icon,'history-msg-status-icon' );
-      
-        div.append(name,msg,id,icon,time)
+        flex.append(time,icon)
+        div.append(name,msg,id,flex)
         li.append(div)
       msg.innerHTML=chat.msg;
       id.innerHTML=chat.msg_id;
       name.innerHTML=chat.sender[0].name;
-        time.innerText=chat.time;
+      
+        time.innerHTML=this.msgTime(chat.time);
       console.log(chat.time)
       console.log(sessionStorage.getItem('user_id'))
       if(chat.from==sessionStorage.getItem('user_id')){
@@ -174,8 +193,10 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
         li.style.background='white   ';
         li.style.color='black';
         li.style.marginRight='5%';
+        
       }
       else{
+        
         li.style.float='left';
         li.style.background = 'white ';
         icon.style.display='none';
@@ -203,9 +224,18 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     })
 
   }
-  messageTime(){
-
+  msgTime(e){
+    let time=new Date(e)
+    let hour= time.getHours()
+    let minute=time.getMinutes()
+    let zone='AM'
+    if(hour > 12){
+      hour=hour-12;
+      zone='PM'
+    }
+return hour+':'+minute+' '+zone
   }
+ 
   option(){
     this.optionSelect=!this.optionSelect
   }
@@ -239,13 +269,14 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       let id_change=document.getElementsByClassName(temp_id)
       id_change[0].getElementsByClassName('send-msg-id')[0].innerHTML=response.msg_id;
       let status=id_change[0].getElementsByTagName('mat-icon')[0].innerHTML="done"
-    
+      time.innerHTML=this.msgTime(response.time);
       
     });
     const li: HTMLLIElement = this.renderer.createElement('li');
     this.renderer.addClass(li,'send-msg-list' );
     const div:HTMLDivElement=this.renderer.createElement('div');
     this.renderer.addClass(div,temp_id );
+    this.renderer.addClass(div,'send-msg-sender' );
     const msg:HTMLParagraphElement=this.renderer.createElement('p');
     this.renderer.addClass(msg,'send-msg-content' );
     // const name:HTMLParagraphElement=this.renderer.createElement('p');
@@ -255,18 +286,20 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     const id:HTMLParagraphElement=this.renderer.createElement('p');
     this.renderer.addClass(id,`send-msg-id` );
   
-
+    const time:HTMLParagraphElement=this.renderer.createElement('p');
+    this.renderer.addClass(time,'send-time')
     const icon=this.renderer.createElement('mat-icon');
     this.renderer.appendChild(icon, this.renderer.createText('query_builder'));
     
     this.renderer.addClass(icon, 'mat-icon');
   this.renderer.addClass(icon, 'material-icons');
     this.renderer.addClass(icon,'send-msg-status-icon' );
-    flex.append(icon)
+    flex.append(time,icon)
   div.append(msg,id,flex)
     li.append(div)
    msg.innerHTML=this.newMessage;
    id.innerHTML=temp_id;
+  
    
  
   
