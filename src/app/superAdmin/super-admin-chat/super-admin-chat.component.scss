@@ -307,6 +307,12 @@
     flex-direction: column;
     overflow: scroll;
  }
+ .admin-message{
+     display: flex;
+     justify-content: center;
+     background-color: white;
+     border-radius: 10px;
+ }
 //  .li-class{
 //      background-color: white;
 //      max-width: 70%;

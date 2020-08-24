@@ -46,16 +46,16 @@
                         <img src="assets/pp.jpg" class="left-sidenav-profile">
                     </div> -->
                     <div class="nav-first-right" *ngFor="let chat of chatDetail">
-                        <div class="nav-right-data {{chat.room_id}}"  (click)="mobileView()"routerLink="/superadmin/chat/{{chat.room_id}}">
+                        <div  class="nav-right-data {{chat.room_id}}"  (click)="mobileView()"routerLink="/superadmin/chat/{{chat.room_id}}">
                             <img class="nav-right-pic" src="assets/demo.jpg">
                             <div class="rightlines">
                                 <div class="right-first-line">
-                                    <p class="institute-name">{{chat.name}}</p>
-                                    <p class="time">{{chat.last_message[0].last_time | date : 'shortTime'}}</p>
+                                    <p *ngIf="chat" class="institute-name">{{chat.name}}</p>
+                                    <p *ngIf="chat.last_message"class="time">{{chat.last_message[0].last_time | date : 'shortTime'}}</p>
                                 </div>
                                 <!-- {{ getTime(chat.last_message[0].last_time) }} -->
                                 <div class="right-second-line" >
-                                    <p class="right-message recent-message">{{chat.last_message[0].last_msg}}</p>
+                                    <p *ngIf="chat.last_message" class="right-message recent-message">{{chat.last_message[0].last_msg}}</p>
                                     <!-- <p class="message-count">2</p> -->
                                 </div>
                             </div>

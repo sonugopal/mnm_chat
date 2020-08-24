@@ -11,7 +11,7 @@ import { HostListener } from "@angular/core";
 import { Admin } from 'src/app/_models/user';
 import * as io from 'socket.io-client';
 
-const SOCKET_ENDPOINT='ws://192.168.137.220:3000'
+const SOCKET_ENDPOINT='ws://192.168.137.215:3000'
 @Component({
   selector: 'app-superadmin-home',
   templateUrl: './superadmin-home.component.html',
@@ -134,14 +134,7 @@ this.router.navigateByUrl('/superadmin')
 
 
   }
-  // getTime(timestamp){
-  //   let time=new Date(timestamp)
-  //   let hour=time.getHours()
-  //   let minutes=time.getMinutes()
-  //   let msg_time=hour+':'+minutes
-  //   return msg_time
-  // }
-  update
+
 
   
  

@@ -25,7 +25,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
   newMessage:any;
 
   constructor(private location: Location,private home:SuperadminHomeComponent,private route:ActivatedRoute
-    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef) { }
+    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef,) { }
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
@@ -44,7 +44,17 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
      console.log(data)
     if (data) {
       if(data.room_id==this.roomId){
+        // if(data.type="admin"){
+        //   const admin_msg:HTMLLIElement = this.renderer.createElement('li');
+        //   this.renderer.addClass(admin_msg,'admin-message' );
+        //   admin_msg.innerHTML=data.msg
+        // }
+        // else{
+       
+        
+     
         if(data.from!==sessionStorage.getItem('user_id')){
+          
           const li: HTMLLIElement = this.renderer.createElement('li');
           this.renderer.addClass(li,'receive-msg-list' );
           const div:HTMLDivElement=this.renderer.createElement('div');
@@ -64,6 +74,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
           else{
             this.renderer.appendChild(icon, this.renderer.createText('done'));
           }
+        
         
           
           this.renderer.addClass(icon, 'mat-icon');
@@ -97,8 +108,9 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
    
     
 
-        }
-       
+     
+      }
+    // }
 
       }
    
@@ -114,6 +126,15 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       this.chatList=body['chat_list'];
       this.chatList.forEach((chat)=>{
         console.log(chat)
+        if(chat.type=='admin'){
+          const admin_msg:HTMLLIElement = this.renderer.createElement('li');
+          this.renderer.addClass(admin_msg,'admin-message' );
+          admin_msg.innerHTML=chat.msg
+          this.renderer.appendChild(this.ul.nativeElement, admin_msg)
+        }
+        else{
+        
+     
         const li: HTMLLIElement = this.renderer.createElement('li');
         this.renderer.addClass(li,'history-msg-list' );
         const div:HTMLDivElement=this.renderer.createElement('div');
@@ -126,6 +147,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     // this.renderer.addClass(name,'name-class' );
         const id:HTMLParagraphElement=this.renderer.createElement('p');
         this.renderer.addClass(id,`history-msg-id` );
+        const time:HTMLParagraphElement=this.renderer.createElement('p');
         const icon=this.renderer.createElement('mat-icon');
         if(chat.status=="delivered"){
           this.renderer.appendChild(icon, this.renderer.createText('done_all'));
@@ -138,13 +160,13 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
       this.renderer.addClass(icon, 'material-icons');
         this.renderer.addClass(icon,'history-msg-status-icon' );
       
-        div.append(name,msg,id,icon)
+        div.append(name,msg,id,icon,time)
         li.append(div)
       msg.innerHTML=chat.msg;
       id.innerHTML=chat.msg_id;
-      name.innerHTML=chat.user;
-    
-      console.log(chat.from)
+      name.innerHTML=chat.sender[0].name;
+        time.innerText=chat.time;
+      console.log(chat.time)
       console.log(sessionStorage.getItem('user_id'))
       if(chat.from==sessionStorage.getItem('user_id')){
         li.style.float='right';
@@ -175,10 +197,14 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
 
     // li.style.fontFamily='Helvetica, Arial, sans-serif';
     this.renderer.appendChild(this.ul.nativeElement, li)
-   
+    }
       })
-
+    
     })
+
+  }
+  messageTime(){
+
   }
   option(){
     this.optionSelect=!this.optionSelect
@@ -229,7 +255,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     const id:HTMLParagraphElement=this.renderer.createElement('p');
     this.renderer.addClass(id,`send-msg-id` );
   
-    // const time:HTMLParagraphElement=this.renderer.createElement('p');
+
     const icon=this.renderer.createElement('mat-icon');
     this.renderer.appendChild(icon, this.renderer.createText('query_builder'));
     
@@ -241,6 +267,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     li.append(div)
    msg.innerHTML=this.newMessage;
    id.innerHTML=temp_id;
+   
  
   
     // li.style.background = 'white';
