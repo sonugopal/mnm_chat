@@ -4,7 +4,7 @@
 import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './../../_services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HostListener } from "@angular/core";
@@ -33,7 +33,7 @@ export class SuperadminHomeComponent implements OnInit {
   constructor(private router:Router,
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
-   
+    private cdRef: ChangeDetectorRef,
     
  
     
@@ -45,8 +45,9 @@ optionSelect:boolean=false;
 searchShow:boolean=false;
 chatport:boolean=true;
   ngOnInit(): void {
-    
-    let role=sessionStorage.getItem('role');
+    const currentUser =JSON.parse( localStorage.getItem('currentUser'))
+    console.log(currentUser)
+    let role=currentUser.user.role;
     if(role=='admin'){
       this.adminLog=false;
     }
@@ -64,6 +65,9 @@ this.socket.on('receive-message',(data)=>{
 
     }
   }
+})
+this.socket.on('new-chat-room',(data)=>{
+  this.loadChat()
 })
 
    
@@ -128,7 +132,7 @@ this.router.navigateByUrl('/superadmin')
       this.chatDetail=body;
      console.log(this.chatDetail);
      
-     
+     this.cdRef.detectChanges();
       this.chatDetail.forEach((room)=>{
         this.socket.emit('join', room.room_id);
        
@@ -146,10 +150,12 @@ this.router.navigateByUrl('/superadmin')
     return this.http.post(environment.apiUrl+'user/get-all-members',null).subscribe((body)=>{
       this.contacts=body;
       console.log(this.contacts)
+      this.cdRef.detectChanges();
     })
   }
  
 showChat(){
+  this.loadChat()
   this.chatport =true;
   this.show=false
 }
@@ -160,8 +166,9 @@ singleChat(e){
   }
   return this.http.post(environment.apiUrl+'chat/get-personal-chat',param).subscribe((res)=>{
     this.single=res;
-  
+ 
     this.router.navigateByUrl('superadmin/chat/'+this.single)
+    // this.cdRef.detectChanges();
   })
  
 }

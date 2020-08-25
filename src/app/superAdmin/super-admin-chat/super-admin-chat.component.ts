@@ -1,3 +1,4 @@
+import { User } from './../../_models/user';
 
 
 
@@ -27,7 +28,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
   newMessage:any;
 
   constructor(private location: Location,private home:SuperadminHomeComponent,private route:ActivatedRoute
-    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef,private _ngZone: NgZone) { }
+    ,private http:HttpClient,private renderer: Renderer2,private elRef: ElementRef,private _ngZone: NgZone,) { }
     @ViewChild('autosize') autosize: CdkTextareaAutosize;
   ngAfterViewChecked(): void {
     this.scrollToBottom();
@@ -36,13 +37,22 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     @ViewChild('scrollMe') private myScrollContainer: ElementRef;
     // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   ngOnInit(): void {
+  
     let audio = new Audio();
       
     audio.src = "assets/notify.mp3";
     audio.load();
     console.log(sessionStorage.getItem('api_token'))
-   this.roomId=this.route.snapshot.params['id'];
-   this.loadChatHistory()
+    this.route.params.subscribe(routeParams => {
+    
+      this.roomId=routeParams.id
+      this.loadChatHistory(routeParams.id);
+  
+   
+    });
+    console.log( this.roomId);
+   
+  //  this.loadChatHistory()
    this.home.socket.on('receive-message', (data) => {
      console.log(data)
     if (data) {
@@ -135,10 +145,19 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     this._ngZone.onStable.pipe(take(1))
         .subscribe(() => this.autosize.resizeToFitContent(true));
   }
-  loadChatHistory(){
-    return this.http.post(environment.apiUrl+'chat/enter-chat-room',{'room_id':this.roomId}).subscribe((body)=>{
+  loadChatHistory(id){
+  var ulId=document.getElementById('ul')
+  console.log(ulId);
+  
+  
+    // document.getElementsByClassName(chat-messages-show-list)[0].innerHTML=''
+
+    const currentUser =JSON.parse( localStorage.getItem('currentUser'))
+   // console.log(currentUser)
+    return this.http.post(environment.apiUrl+'chat/enter-chat-room',{'room_id':id}).subscribe((body)=>{
       this.roomName=body['room_name'];
       this.chatList=body['chat_list'];
+      document.getElementsByClassName('chat-messages-show-list')[0].innerHTML=''
       this.chatList.forEach((chat)=>{
         console.log(chat)
         if(chat.type=='admin'){
@@ -149,7 +168,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
         }
         else{
         
-     
+          
         const li: HTMLLIElement = this.renderer.createElement('li');
         this.renderer.addClass(li,'history-msg-list' );
         const div:HTMLDivElement=this.renderer.createElement('div');
@@ -158,8 +177,6 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
         this.renderer.addClass(name,'history-msg-name');
         const msg:HTMLParagraphElement=this.renderer.createElement('p');
         this.renderer.addClass(msg,'history-msg-content' );
-        // const name:HTMLParagraphElement=this.renderer.createElement('p');
-    // this.renderer.addClass(name,'name-class' );
         const id:HTMLParagraphElement=this.renderer.createElement('p');
         this.renderer.addClass(id,`history-msg-id` );
         const flex:HTMLDivElement=this.renderer.createElement('div');
@@ -187,7 +204,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
         time.innerHTML=this.msgTime(chat.time);
       console.log(chat.time)
       console.log(sessionStorage.getItem('user_id'))
-      if(chat.from==sessionStorage.getItem('user_id')){
+      if(chat.from==currentUser.user.user_id){
         li.style.float='right';
         name.style.display='none';
         li.style.background='white   ';
@@ -217,6 +234,7 @@ export class SuperAdminChatComponent implements OnInit,AfterViewChecked  {
     // li.style.wordWrap='break-word'
 
     // li.style.fontFamily='Helvetica, Arial, sans-serif';
+    
     this.renderer.appendChild(this.ul.nativeElement, li)
     }
       })
@@ -251,17 +269,21 @@ return hour+':'+minute+' '+zone
     data.patchValue(data.value + $event.emoji.native)
   }
   sendMessage(event){
+    const currentUser =JSON.parse( localStorage.getItem('currentUser'))
+    console.log(currentUser)
     this.newMessage=this.newMessage.trim()
     if(this.newMessage){
     console.log(this.newMessage.length);
     
     
     var temp_id=uuid.v4();
+    console.log(this.roomId);
+    
     let message={
       msg:this.newMessage,
       room_id:this.roomId,
       temp_id:temp_id,
-      user_id:sessionStorage.getItem('user_id')
+      user_id:currentUser.user.user_id
     }
   
     this.home.socket.emit('send-message',message,(response)=>{
@@ -299,30 +321,8 @@ return hour+':'+minute+' '+zone
     li.append(div)
    msg.innerHTML=this.newMessage;
    id.innerHTML=temp_id;
-  
-   
- 
-  
-    // li.style.background = 'white';
-    // id.style.display='none';
-    // li.style.float='right';
-    // li.style.maxWidth='70%';
-   
-    // li.style.clear='both';
-    // li.style.padding='10px';
-    // li.style.borderRadius='10px';
-    // li.style.marginBottom='5px';
-    // li.style.marginTop='5px';
-    // li.style.marginRight='2px';
-    // li.style.wordWrap='break-word'
-
-    // li.style.fontFamily='Helvetica, Arial, sans-serif';
     this.renderer.appendChild(this.ul.nativeElement, li);
     this.scrollToBottom();
-    // var objDiv=document.getElementsByClassName('chat-conntainer')[0];
-    // objDiv.scrollTop=objDiv.scrollHeight
-    // document.getElementById('message-list').appendChild(element)
-    
     this.newMessage = '';
   }
   }

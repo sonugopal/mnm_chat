@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUser =JSON.parse( localStorage.getItem('currentUser'))
-    
+    console.log(currentUser)
    if(currentUser){
     this.router.navigate(['/superadmin'] );
   
