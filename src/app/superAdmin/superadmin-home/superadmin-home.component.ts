@@ -11,7 +11,7 @@ import { HostListener } from "@angular/core";
 import { Admin } from 'src/app/_models/user';
 import * as io from 'socket.io-client';
 
-const SOCKET_ENDPOINT='ws://192.168.137.215:3000'
+const SOCKET_ENDPOINT='ws://206.189.133.28:3000'
 @Component({
   selector: 'app-superadmin-home',
   templateUrl: './superadmin-home.component.html',
