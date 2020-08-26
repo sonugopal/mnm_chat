@@ -34,12 +34,12 @@ export class SuperadminHomeComponent implements OnInit {
     private AuthenticationService:AuthenticationService,
     private http:HttpClient,
     private cdRef: ChangeDetectorRef,
-    
- 
-    
+
+
+
     ) { this.getScreenSize();
       this.loadChat();
- 
+
       }
 optionSelect:boolean=false;
 searchShow:boolean=false;
@@ -51,9 +51,9 @@ chatport:boolean=true;
     if(role=='admin'){
       this.adminLog=false;
     }
-    
+
     this.socket = io(SOCKET_ENDPOINT);
-    
+
 this.socket.on('receive-message',(data)=>{
   if(data){
     if(this.screenWidth>500){
@@ -70,9 +70,9 @@ this.socket.on('new-chat-room',(data)=>{
   this.loadChat()
 })
 
-   
-   
-   
+
+
+
   }
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
@@ -95,7 +95,7 @@ mobileView(){
   else{
     this.chatport=true
   }
-  
+
 }
 
 fnSearchShow(){
@@ -105,7 +105,7 @@ logout(){
   this.AuthenticationService.logout();
   this.router.navigateByUrl('/login')
   sessionStorage.clear()
-  
+
 }
 getAdmin(index:number){
 this.router.navigateByUrl('/superadmin')
@@ -127,17 +127,17 @@ this.router.navigateByUrl('/superadmin')
 // );
   }
   loadChat(){
-  
+
     return this.http.post<any>(environment.apiUrl+'chat/get-chat-rooms',null).subscribe((body)=>{
       this.chatDetail=body;
      console.log(this.chatDetail);
-     
+
      this.cdRef.detectChanges();
       this.chatDetail.forEach((room)=>{
         this.socket.emit('join', room.room_id);
-       
+
       })
-     
+
     })
 
 
@@ -153,7 +153,7 @@ this.router.navigateByUrl('/superadmin')
       this.cdRef.detectChanges();
     })
   }
- 
+
 showChat(){
   this.loadChat()
   this.chatport =true;
@@ -166,11 +166,11 @@ singleChat(e){
   }
   return this.http.post(environment.apiUrl+'chat/get-personal-chat',param).subscribe((res)=>{
     this.single=res;
- 
+
     this.router.navigateByUrl('superadmin/chat/'+this.single)
     // this.cdRef.detectChanges();
   })
- 
+
 }
 }
 

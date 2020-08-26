@@ -67,7 +67,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "masternmasters:build"
-           
           },
           "configurations": {
             "production": {
@@ -124,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "masternmasters"
+    }
+  },
+  "defaultProject": "masternmasters",
+  "cli": {
+    "analytics": "af14ce53-8d7d-4b03-b378-5991c8513b1b"
+  }
 }
